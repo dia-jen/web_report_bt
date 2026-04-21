@@ -1,0 +1,298 @@
+[
+    {
+        "COUNTRY": "Albania",
+        "DC/CAPITA": "0,00000042313463213098200",
+        "DC_%_E_CONSUMPTIOM": "0,2",
+        "NH_PRICES": "0,142000",
+        "HH_PRICES": "0,086200",
+        "GDP": "10000"
+    },
+    {
+        "COUNTRY": "Austria",
+        "DC/CAPITA": "0,00000739354410950361000",
+        "DC_%_E_CONSUMPTIOM": "0,6",
+        "NH_PRICES": "0,257800",
+        "HH_PRICES": "0,369700",
+        "GDP": "55710"
+    },
+    {
+        "COUNTRY": "Belgium",
+        "DC/CAPITA": "0,00000680665233460192000",
+        "DC_%_E_CONSUMPTIOM": "1,0",
+        "NH_PRICES": "0,265700",
+        "HH_PRICES": "0,393300",
+        "GDP": "53920"
+    },
+    {
+        "COUNTRY": "Bosnia and Herzegovina",
+        "DC/CAPITA": "0,00000058710115283182400",
+        "DC_%_E_CONSUMPTIOM": "0,2",
+        "NH_PRICES": "0,130900",
+        "HH_PRICES": "0,231700",
+        "GDP": ""
+    },
+    {
+        "COUNTRY": "Bulgaria",
+        "DC/CAPITA": "0,00000372823641989884000",
+        "DC_%_E_CONSUMPTIOM": "0,7",
+        "NH_PRICES": "0,173300",
+        "HH_PRICES": "0,110600",
+        "GDP": "18060"
+    },
+    {
+        "COUNTRY": "Croatia",
+        "DC/CAPITA": "0,00000232297030469627000",
+        "DC_%_E_CONSUMPTIOM": "0,7",
+        "NH_PRICES": "0,261800",
+        "HH_PRICES": "0,207600",
+        "GDP": "23870"
+    },
+    {
+        "COUNTRY": "Cyprus",
+        "DC/CAPITA": "0,00000612329249437423000",
+        "DC_%_E_CONSUMPTIOM": "0,7",
+        "NH_PRICES": "0,201500",
+        "HH_PRICES": "0,479500",
+        "GDP": "36690"
+    },
+    {
+        "COUNTRY": "Czechia",
+        "DC/CAPITA": "0,00000311654979604931000",
+        "DC_%_E_CONSUMPTIOM": "1,2",
+        "NH_PRICES": "0,264700",
+        "HH_PRICES": "0,464500",
+        "GDP": "31810"
+    },
+    {
+        "COUNTRY": "Denmark",
+        "DC/CAPITA": "0,00000834343723582592000",
+        "DC_%_E_CONSUMPTIOM": "4,5",
+        "NH_PRICES": "0,164900",
+        "HH_PRICES": "0,247900",
+        "GDP": "68310"
+    },
+    {
+        "COUNTRY": "Estonia",
+        "DC/CAPITA": "0,00001167887474041880000",
+        "DC_%_E_CONSUMPTIOM": "1,0",
+        "NH_PRICES": "0,201100",
+        "HH_PRICES": "0,259600",
+        "GDP": "30380"
+    },
+    {
+        "COUNTRY": "Finland",
+        "DC/CAPITA": "0,00000851672231812407000",
+        "DC_%_E_CONSUMPTIOM": "1,0",
+        "NH_PRICES": "0,107100",
+        "HH_PRICES": "0,269400",
+        "GDP": "49710"
+    },
+    {
+        "COUNTRY": "France",
+        "DC/CAPITA": "0,00000469141947973236000",
+        "DC_%_E_CONSUMPTIOM": "2,6",
+        "NH_PRICES": "0,213800",
+        "HH_PRICES": "0,323300",
+        "GDP": "43350"
+    },
+    {
+        "COUNTRY": "Georgia",
+        "DC/CAPITA": "0,00000107976610106719000",
+        "DC_%_E_CONSUMPTIOM": "0,2",
+        "NH_PRICES": "0,090700",
+        "HH_PRICES": "0,048300",
+        "GDP": ""
+    },
+    {
+        "COUNTRY": "Germany",
+        "DC/CAPITA": "0,00000606625208759237000",
+        "DC_%_E_CONSUMPTIOM": "4,0",
+        "NH_PRICES": "0,266500",
+        "HH_PRICES": "0,426700",
+        "GDP": "53520"
+    },
+    {
+        "COUNTRY": "Greece",
+        "DC/CAPITA": "0,00000134491923615888000",
+        "DC_%_E_CONSUMPTIOM": "0,7",
+        "NH_PRICES": "0,243700",
+        "HH_PRICES": "0,350500",
+        "GDP": "23570"
+    },
+    {
+        "COUNTRY": "Hungary",
+        "DC/CAPITA": "0,00000157240912575940000",
+        "DC_%_E_CONSUMPTIOM": "0,5",
+        "NH_PRICES": "0,211900",
+        "HH_PRICES": "0,071400",
+        "GDP": "23000"
+    },
+    {
+        "COUNTRY": "Iceland",
+        "DC/CAPITA": "0,00001540657963661010000",
+        "DC_%_E_CONSUMPTIOM": "10,5",
+        "NH_PRICES": "",
+        "HH_PRICES": "0,367000",
+        "GDP": "87390"
+    },
+    {
+        "COUNTRY": "Ireland",
+        "DC/CAPITA": "0,00002334602597328110000",
+        "DC_%_E_CONSUMPTIOM": "19,0",
+        "NH_PRICES": "0,296000",
+        "HH_PRICES": "0,366200",
+        "GDP": "116770"
+    },
+    {
+        "COUNTRY": "Italy",
+        "DC/CAPITA": "0,00000285063792440845000",
+        "DC_%_E_CONSUMPTIOM": "0,9",
+        "NH_PRICES": "0,304500",
+        "HH_PRICES": "0,476900",
+        "GDP": "38310"
+    },
+    {
+        "COUNTRY": "Latvia",
+        "DC/CAPITA": "0,00001454011240045410000",
+        "DC_%_E_CONSUMPTIOM": "0,5",
+        "NH_PRICES": "0,241900",
+        "HH_PRICES": "0,359100",
+        "GDP": "23410"
+    },
+    {
+        "COUNTRY": "Liechtenstein",
+        "DC/CAPITA": "0,00004891769597651950000",
+        "DC_%_E_CONSUMPTIOM": "",
+        "NH_PRICES": "",
+        "HH_PRICES": "0,447800",
+        "GDP": ""
+    },
+    {
+        "COUNTRY": "Lithuania",
+        "DC/CAPITA": "0,00000622694301378507000",
+        "DC_%_E_CONSUMPTIOM": "0,5",
+        "NH_PRICES": "0,284400",
+        "HH_PRICES": "0,198100",
+        "GDP": "29170"
+    },
+    {
+        "COUNTRY": "Luxembourg",
+        "DC/CAPITA": "0,00003372567535664900000",
+        "DC_%_E_CONSUMPTIOM": "4,1",
+        "NH_PRICES": "0,258800",
+        "HH_PRICES": "0,457900",
+        "GDP": "130300"
+    },
+    {
+        "COUNTRY": "Macedonia",
+        "DC/CAPITA": "0,00000329670329670330000",
+        "DC_%_E_CONSUMPTIOM": "0,325",
+        "NH_PRICES": "",
+        "HH_PRICES": "0,285700",
+        "GDP": "9299"
+    },
+    {
+        "COUNTRY": "Malta",
+        "DC/CAPITA": "0,00001044841097083150000",
+        "DC_%_E_CONSUMPTIOM": "0,7",
+        "NH_PRICES": "0,185200",
+        "HH_PRICES": "0,202300",
+        "GDP": "42160"
+    },
+    {
+        "COUNTRY": "Moldova",
+        "DC/CAPITA": "0,00000293953996199595000",
+        "DC_%_E_CONSUMPTIOM": "0,2",
+        "NH_PRICES": "0,192200",
+        "HH_PRICES": "",
+        "GDP": ""
+    },
+    {
+        "COUNTRY": "Netherlands",
+        "DC/CAPITA": "0,00001651516039074870000",
+        "DC_%_E_CONSUMPTIOM": "5,8",
+        "NH_PRICES": "0,337300",
+        "HH_PRICES": "0,758800",
+        "GDP": "65210"
+    },
+    {
+        "COUNTRY": "Norway",
+        "DC/CAPITA": "0,00000840134850581123000",
+        "DC_%_E_CONSUMPTIOM": "2,8",
+        "NH_PRICES": "0,074400",
+        "HH_PRICES": "0,444900",
+        "GDP": "83950"
+    },
+    {
+        "COUNTRY": "Poland",
+        "DC/CAPITA": "0,00000394547625802812000",
+        "DC_%_E_CONSUMPTIOM": "0,85",
+        "NH_PRICES": "0,250500",
+        "HH_PRICES": "0,191200",
+        "GDP": "24680"
+    },
+    {
+        "COUNTRY": "Portugal",
+        "DC/CAPITA": "0,00000195355470208989000",
+        "DC_%_E_CONSUMPTIOM": "0,6",
+        "NH_PRICES": "0,175000",
+        "HH_PRICES": "0,307900",
+        "GDP": "28390"
+    },
+    {
+        "COUNTRY": "Romania",
+        "DC/CAPITA": "0,00000162849072897601000",
+        "DC_%_E_CONSUMPTIOM": "0,55",
+        "NH_PRICES": "0,168800",
+        "HH_PRICES": "0,121100",
+        "GDP": "19960"
+    },
+    {
+        "COUNTRY": "Serbia",
+        "DC/CAPITA": "0,00000182710056041742000",
+        "DC_%_E_CONSUMPTIOM": "1,75",
+        "NH_PRICES": "0,122400",
+        "HH_PRICES": "0,140700",
+        "GDP": "13540"
+    },
+    {
+        "COUNTRY": "Slovakia",
+        "DC/CAPITA": "0,00000258328749535700000",
+        "DC_%_E_CONSUMPTIOM": "0,5",
+        "NH_PRICES": "0,223500",
+        "HH_PRICES": "0,199800",
+        "GDP": "25060"
+    },
+    {
+        "COUNTRY": "Slovenia",
+        "DC/CAPITA": "0,00000610085177276674000",
+        "DC_%_E_CONSUMPTIOM": "0,5",
+        "NH_PRICES": "0,170900",
+        "HH_PRICES": "0,267300",
+        "GDP": "33060"
+    },
+    {
+        "COUNTRY": "Spain",
+        "DC/CAPITA": "0,00000293410585080267000",
+        "DC_%_E_CONSUMPTIOM": "0,7",
+        "NH_PRICES": "0,207600",
+        "HH_PRICES": "0,362000",
+        "GDP": "34210"
+    },
+    {
+        "COUNTRY": "Sweden",
+        "DC/CAPITA": "0,00000897266736621989000",
+        "DC_%_E_CONSUMPTIOM": "2,3",
+        "NH_PRICES": "0,184600",
+        "HH_PRICES": "0,369900",
+        "GDP": "55620"
+    },
+    {
+        "COUNTRY": "UnitedKingdom",
+        "DC/CAPITA": "0,000007323741007",
+        "DC_%_E_CONSUMPTIOM": "4,0",
+        "NH_PRICES": "",
+        "HH_PRICES": "",
+        "GDP": "47250"
+    }
+]
