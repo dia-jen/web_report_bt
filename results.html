@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Results · Living Along Data Centers</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="index.html" class="nav-brand">Living Along Data Centers</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="hypotheses.html">Hypotheses</a></li>
+      <li><a href="map.html">Explore Data</a></li>
+      <li><a href="results.html" class="active">Results</a></li>
+    </ul>
+  </nav>
+
+  <main class="page">
+
+    <!-- PAGE HEADER -->
+    <section id="page-header">
+      <div class="container--narrow">
+        <p class="label">Empirical Results</p>
+        <h1>Analysis Results</h1>
+        <div class="rule"></div>
+        <p>
+          This page presents the full results of the Spearman's rank correlation analysis and OLS regression
+          for all seven hypotheses. Results are shown both with and without IQR outlier removal.
+          Findings should be interpreted as associative rather than causal.
+        </p>
+        <div class="results-summary-chips">
+          <div class="summary-chip">
+            <span class="chip-num">2</span>
+            <span class="chip-label">Hypotheses not rejected (H0, H1)</span>
+          </div>
+          <div class="summary-chip">
+            <span class="chip-num">2</span>
+            <span class="chip-label">Statistically significant ICT findings (H5b, H6b)</span>
+          </div>
+          <div class="summary-chip">
+            <span class="chip-num">2</span>
+            <span class="chip-label">Statistically insignificant (H2, H3)</span>
+          </div>
+          <div class="summary-chip">
+            <span class="chip-num">35</span>
+            <span class="chip-label">European countries analysed</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPEARMAN OVERVIEW CHART -->
+    <section id="spearman-overview">
+      <div class="container">
+        <p class="label">Overview</p>
+        <h2>Spearman Correlation Coefficients — All Hypotheses</h2>
+        <div class="rule"></div>
+        <p>
+          The bar chart below visualises the Spearman ρ for all hypotheses. Significance stars follow
+          the convention: *** p&lt;0.001 · ** p&lt;0.01 · * p&lt;0.05 · † p&lt;0.10 · ns = not significant.
+        </p>
+        <div id="spearman-chart-container">
+          <canvas id="spearman-chart" aria-label="Spearman correlation overview bar chart" role="img"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENERGY PRICES: SPEARMAN TABLE -->
+    <section id="price-spearman">
+      <div class="container">
+        <p class="label">Price Hypotheses · H0 – H3</p>
+        <h2>Spearman's Correlation — Energy Prices</h2>
+        <div class="rule"></div>
+        <p>
+          H0 and H1 are statistically significant at the p&lt;0.001 level, indicating a moderate positive
+          relationship between household electricity prices and data center concentration. H2 and H3
+          (non-household prices) are not statistically significant.
+        </p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Hypothesis</th>
+              <th>x (independent)</th>
+              <th>y (dependent)</th>
+              <th>ρ</th>
+              <th>p-value</th>
+              <th>n</th>
+              <th>Significance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>H0</strong></td>
+              <td>HH_E_P</td>
+              <td>DC_CAPITA</td>
+              <td class="num-cell p-high">0.550</td>
+              <td class="num-cell p-high">0.000613</td>
+              <td class="num-cell">31</td>
+              <td><span class="sig sig--high">*** p&lt;0.001</span></td>
+            </tr>
+            <tr>
+              <td><strong>H1</strong></td>
+              <td>HH_E_P</td>
+              <td>DC_SHARE</td>
+              <td class="num-cell p-high">0.573</td>
+              <td class="num-cell p-high">0.000397</td>
+              <td class="num-cell">29</td>
+              <td><span class="sig sig--high">*** p&lt;0.001</span></td>
+            </tr>
+            <tr>
+              <td><strong>H2</strong></td>
+              <td>NON-HH_E_P</td>
+              <td>DC_CAPITA</td>
+              <td class="num-cell p-none">0.298</td>
+              <td class="num-cell p-none">0.091579</td>
+              <td class="num-cell">29</td>
+              <td><span class="sig sig--none">† p&lt;0.10</span></td>
+            </tr>
+            <tr>
+              <td><strong>H3</strong></td>
+              <td>NON-HH_E_P</td>
+              <td>DC_SHARE</td>
+              <td class="num-cell p-none">0.299</td>
+              <td class="num-cell p-none">0.091488</td>
+              <td class="num-cell">29</td>
+              <td><span class="sig sig--none">† p&lt;0.10</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- H0/H1: OLS REGRESSION -->
+        <h3>OLS Regression — H0 &amp; H1 (statistically significant results only)</h3>
+        <p>
+          For H0 and H1, OLS regression was run with and without GDP per capita as a control variable.
+          Including GDP per capita substantially improved explanatory power, suggesting that economic
+          development — rather than data centers directly — partially explains higher electricity prices.
+        </p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Hypothesis</th>
+              <th>Variables</th>
+              <th>R²</th>
+              <th>Adjusted R²</th>
+              <th>n (after IQR)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Simple OLS</td>
+              <td><strong>H0</strong></td>
+              <td>HH_E_P ~ DC_SHARE</td>
+              <td class="num-cell">0.145</td>
+              <td class="num-cell">—</td>
+              <td class="num-cell">31</td>
+            </tr>
+            <tr>
+              <td>OLS + GDP control</td>
+              <td><strong>H0</strong></td>
+              <td>HH_E_P ~ DC_SHARE + GDP_PC</td>
+              <td class="num-cell p-mid">0.292</td>
+              <td class="num-cell">—</td>
+              <td class="num-cell">31</td>
+            </tr>
+            <tr>
+              <td>Simple OLS</td>
+              <td><strong>H1</strong></td>
+              <td>HH_E_P ~ DC_CAPITA</td>
+              <td class="num-cell">0.161</td>
+              <td class="num-cell">—</td>
+              <td class="num-cell">29</td>
+            </tr>
+            <tr>
+              <td>OLS + GDP control</td>
+              <td><strong>H1</strong></td>
+              <td>HH_E_P ~ DC_CAPITA + GDP_PC</td>
+              <td class="num-cell p-mid">0.319</td>
+              <td class="num-cell">—</td>
+              <td class="num-cell">29</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="interpretation-box">
+          <h4>Interpretation</h4>
+          <p>
+            H0 and H1 cannot be rejected — there is a statistically significant positive relationship between
+            household electricity prices and data center concentration. However, when GDP per capita is controlled
+            for, explanatory power increases substantially (R² rises from ~0.15 to ~0.31), indicating that
+            more economically developed countries tend to have both more data centers <em>and</em> higher energy prices.
+            Data centers are therefore associated with higher prices, but are not necessarily the direct cause.
+            H2 and H3 yield no statistically significant findings — no clear relationship between
+            non-household prices and data center concentration is observable.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ICT: SPEARMAN TABLE -->
+    <section id="ict-spearman">
+      <div class="container">
+        <p class="label">ICT Hypotheses · H4 – H6</p>
+        <h2>Spearman's Correlation — ICT Sector</h2>
+        <div class="rule"></div>
+        <p>
+          Results for ICT hypotheses show high variability. H5 (ICT employment × DC per capita) is the
+          strongest finding: a highly significant positive correlation (ρ = 0.703, p &lt; 0.001).
+          H6b (ICT R&amp;D × DC per capita) also shows a significant positive correlation.
+          H4 (ICT GVA) yields weak or insignificant results.
+        </p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Hypothesis</th>
+              <th>x (independent)</th>
+              <th>y (dependent)</th>
+              <th>ρ</th>
+              <th>p-value</th>
+              <th>n</th>
+              <th>Significance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>H4</strong></td>
+              <td>ICT_GVA</td>
+              <td>DC_SHARE</td>
+              <td class="num-cell p-none">0.206</td>
+              <td class="num-cell p-none">0.267</td>
+              <td class="num-cell">31</td>
+              <td><span class="sig sig--none">ns</span></td>
+            </tr>
+            <tr>
+              <td><strong>H5</strong></td>
+              <td>ICT_EMP</td>
+              <td>DC_CAPITA</td>
+              <td class="num-cell p-high">0.703</td>
+              <td class="num-cell p-high">0.00002</td>
+              <td class="num-cell">29</td>
+              <td><span class="sig sig--high">*** p&lt;0.001</span></td>
+            </tr>
+            <tr>
+              <td><strong>H6</strong></td>
+              <td>ICT_RnD</td>
+              <td>DC_SHARE</td>
+              <td class="num-cell p-none">0.192</td>
+              <td class="num-cell p-none">0.318</td>
+              <td class="num-cell">29</td>
+              <td><span class="sig sig--none">ns</span></td>
+            </tr>
+            <tr>
+              <td><strong>H4b</strong></td>
+              <td>ICT_GVA</td>
+              <td>DC_CAPITA</td>
+              <td class="num-cell p-none">0.340</td>
+              <td class="num-cell p-none">0.061</td>
+              <td class="num-cell">31</td>
+              <td><span class="sig sig--none">† p&lt;0.10</span></td>
+            </tr>
+            <tr>
+              <td><strong>H5b</strong></td>
+              <td>ICT_EMP</td>
+              <td>DC_SHARE</td>
+              <td class="num-cell p-mid">0.364</td>
+              <td class="num-cell p-mid">0.052</td>
+              <td class="num-cell">29</td>
+              <td><span class="sig sig--mid">* p&lt;0.05</span></td>
+            </tr>
+            <tr>
+              <td><strong>H6b</strong></td>
+              <td>ICT_RnD</td>
+              <td>DC_CAPITA</td>
+              <td class="num-cell p-high">0.559</td>
+              <td class="num-cell p-high">0.00162</td>
+              <td class="num-cell">29</td>
+              <td><span class="sig sig--high">** p&lt;0.01</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- ICT CHART: before/after IQR for H5 -->
+        <h3>H5 — ICT Employment × DC per Capita: Before &amp; After IQR</h3>
+        <p>
+          The chart below shows the Spearman correlation and R² for H5 with all data points included
+          (n=29, R²=0.614) versus after IQR outlier removal (n=28, R²=0.447). The relationship is robust
+          and persists after removing outliers such as Ireland.
+        </p>
+        <div id="ict-chart-container">
+          <canvas id="ict-chart" aria-label="ICT employment correlation before and after IQR" role="img"></canvas>
+        </div>
+
+        <div class="interpretation-box">
+          <h4>Interpretation</h4>
+          <p>
+            H5 yields the strongest finding of the entire analysis: countries with more data centers per capita
+            also have a significantly higher ICT employment share (ρ = 0.703, p &lt; 0.001). This suggests
+            that data center infrastructure does act as a broader economic anchor for the ICT sector, even
+            if individual facilities require few direct employees.
+          </p>
+          <p>
+            H6b similarly shows a significant positive correlation between DC per capita and ICT R&amp;D spending,
+            suggesting that dense infrastructure drives capital into innovation. H4 (GVA) shows only weak,
+            borderline results, indicating that energy consumption alone does not guarantee proportionate
+            growth in economic output.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUTLIER SPOTLIGHT -->
+    <section id="outliers">
+      <div class="container--narrow">
+        <p class="label">Outlier Analysis</p>
+        <h2>Key Outlier Countries</h2>
+        <div class="rule"></div>
+        <p>
+          The IQR method identified several countries as statistical outliers due to extreme data center
+          concentration relative to their population. These countries were excluded from OLS regression
+          but retained in Spearman correlation analysis.
+        </p>
+
+        <div class="outlier-cards">
+          <div class="outlier-card">
+            <h3>🇮🇪 Ireland</h3>
+            <p>Data centers consume an estimated <strong>18–22%</strong> of national electricity — the highest share in Europe. 95 out of 127 data centers are concentrated in Dublin. Removed from OLS as DC_SHARE outlier.</p>
+          </div>
+          <div class="outlier-card">
+            <h3>🇳🇱 Netherlands</h3>
+            <p>Data centers account for approximately <strong>5.2%</strong> of national energy demand, driven by the Amsterdam hub. Identified as outlier in DC_SHARE analysis.</p>
+          </div>
+          <div class="outlier-card">
+            <h3>🇩🇰 Denmark</h3>
+            <p>Data centers account for approximately <strong>4.5%</strong> of national demand, above the European median. Flagged by IQR in energy share analysis.</p>
+          </div>
+          <div class="outlier-card">
+            <h3>🇱🇺 Luxembourg &amp; 🇱🇮 Liechtenstein</h3>
+            <p>Very small populations produce extreme DC per capita values that heavily distort the distribution. Flagged and removed in DC_CAPITA regression models.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOWNLOAD -->
+    <section id="download">
+      <div class="container--narrow">
+        <p class="label">Data Sources</p>
+        <h2>Download the Data</h2>
+        <div class="rule"></div>
+        <p>
+          All datasets used in this analysis are available for download. The archive includes raw CSVs
+          for energy prices, ICT variables, GDP per capita, and data center counts by country, as well
+          as the cleaned datasets used in regression analysis.
+        </p>
+        <div class="download-buttons">
+          <!--
+            Replace href with your actual file path.
+            Example: href="data/thesis-data.zip" download
+          -->
+          <a href="data/thesis-data.zip" download class="btn btn--primary">
+            ↓ Download All Data (ZIP)
+          </a>
+          <a href="data/spearman-results.csv" download class="btn btn--outline">
+            ↓ Spearman Results (CSV)
+          </a>
+          <a href="data/ols-results.csv" download class="btn btn--outline">
+            ↓ OLS Results (CSV)
+          </a>
+        </div>
+        <p class="data-note">
+          <strong>Primary sources:</strong> Eurostat (<code>nrg_pc_204</code>, <code>nama_10_pc</code>, isoc datasets),
+          Data Center Map, prior studies on European data center energy shares.
+          All data covers the period 2014–2023 unless otherwise noted. Missing values were filled via
+          linear interpolation or manual country-level research.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-left">
+        <strong>Diana Jenčíková</strong><br />
+        Bachelor's Thesis · Czech Technical University in Prague<br />
+        Faculty of Information Technology · April 2026
+      </div>
+      <div class="footer-right">
+        Supervisor: PhDr. Ing. Tomáš Evan, Ph.D.<br />
+        Department of Software Engineering
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/results.js"></script>
+</body>
+</html>
