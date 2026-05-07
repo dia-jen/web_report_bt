@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Results · Living Along Data Centers</title>
   <link rel="stylesheet" href="css/style.css" />
-  <!-- Chart.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 <body>
 
@@ -202,6 +202,33 @@
             non-household prices and data center concentration is observable.
           </p>
         </div>
+
+        <!-- ── SCATTER EXPLORER (H0–H3) ───────────────────────────── -->
+        <h3>Scatter Plot Explorer — Price Hypotheses</h3>
+        <p>Select a hypothesis to visualise the raw data points and regression lines.
+          <span style="color:#DD4444;">▲</span> marks IQR outliers excluded from OLS regression.</p>
+
+        <div style="display:grid; grid-template-columns:120px 1fr; gap:1.5rem; align-items:start; margin-top:1.5rem;">
+
+          <!-- sidebar buttons — filled by results.js -->
+          <select id="yAxis">
+          <option value="dcPerCapita, hhPrices">H_0 - DC/capita vs HH Prices</option>
+          <option value="dcPctConsumption, hhPrices">H_1 - Energy Share vs HH Prices</option>
+          <option value="dcPerCapita, nhPrices">H_2 - DC/capita vs NH Prices</option>
+          <option value="dcPctConsumption, nhPrices">H_3 - Energy Share vs NH Prices</option>
+
+        </select>
+        <button id="toggleOutliers">Hide Outliers</button>
+
+            <!-- <div style="width: 500px;"><canvas id="dimensions"></canvas></div><br/> -->
+            <div style="width: 800px;"><canvas id="acquisitions"></canvas></div>
+
+            <!-- <script type="module" src="dimensions.js"></script> -->
+        <script type="module" src="js/scatter_1.js"></script>
+
+        </div>
+        <!-- ── END SCATTER EXPLORER ───────────────────────────────── -->
+
       </div>
     </section>
 
@@ -288,16 +315,31 @@
           </tbody>
         </table>
 
-        <!-- ICT CHART: before/after IQR for H5 -->
-        <h3>H5 — ICT Employment × DC per Capita: Before &amp; After IQR</h3>
-        <p>
-          The chart below shows the Spearman correlation and R² for H5 with all data points included
-          (n=29, R²=0.614) versus after IQR outlier removal (n=28, R²=0.447). The relationship is robust
-          and persists after removing outliers such as Ireland.
-        </p>
-        <div id="ict-chart-container">
-          <canvas id="ict-chart" aria-label="ICT employment correlation before and after IQR" role="img"></canvas>
+    
+
+        <!-- ── SCATTER EXPLORER (H4–H6b) ──────────────────────────── -->
+        <h3>Scatter Plot Explorer — ICT Hypotheses</h3>
+        <p>Select a hypothesis to visualise the raw data points and regression lines.
+          <span style="color:#DD4444;">▲</span> marks IQR outliers excluded from OLS regression.</p>
+
+        <div style="display:grid; grid-template-columns:120px 1fr; gap:1.5rem; align-items:start; margin-top:1.5rem;">
+
+          <div id="ict-hyp-buttons" style="display:flex; flex-direction:column; gap:0.5rem;"></div>
+
+          <div>
+            <div id="ict-scatter-stats" style="font-size:.85rem; font-family:var(--font-mono);
+              color:var(--text-light); margin-bottom:0.75rem;"></div>
+            <div class="chart-container">
+              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+              <canvas id="ict-scatter-canvas" style="max-height:400px;"
+                aria-label="ICT hypothesis scatter plot" role="img"></canvas>
+
+            </div>
+          </div>
+
         </div>
+        <!-- ── END SCATTER EXPLORER ───────────────────────────────── -->
 
         <div class="interpretation-box">
           <h4>Interpretation</h4>
@@ -362,10 +404,6 @@
           as the cleaned datasets used in regression analysis.
         </p>
         <div class="download-buttons">
-          <!--
-            Replace href with your actual file path.
-            Example: href="data/thesis-data.zip" download
-          -->
           <a href="data/thesis-data.zip" download class="btn btn--primary">
             ↓ Download All Data (ZIP)
           </a>
