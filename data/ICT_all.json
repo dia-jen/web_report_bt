@@ -1,0 +1,335 @@
+[
+    {
+        "country": "Albania",
+        "ICT_GVA": "2.65",
+        "ICT_EMP": "",
+        "ICT_RnD": "",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "all_missing",
+        "ICT_RnD_flag": ""
+    },
+    {
+        "country": "Austria",
+        "ICT_GVA": "3.6544444444444446",
+        "ICT_EMP": "2.7977777777777777",
+        "ICT_RnD": "15.593333333333334",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Belgium",
+        "ICT_GVA": "3.9949999999999997",
+        "ICT_EMP": "2.877",
+        "ICT_RnD": "16.165714285714284",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Bosnia and Herzegovina",
+        "ICT_GVA": "5.051666666666667",
+        "ICT_EMP": "",
+        "ICT_RnD": "4.056666666666667",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "all_missing",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Bulgaria",
+        "ICT_GVA": "6.403999999999999",
+        "ICT_EMP": "3.0140000000000002",
+        "ICT_RnD": "33.652857142857144",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Croatia",
+        "ICT_GVA": "4.634",
+        "ICT_EMP": "2.901",
+        "ICT_RnD": "24.936666666666667",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Cyprus",
+        "ICT_GVA": "",
+        "ICT_EMP": "",
+        "ICT_RnD": "63.67124999999999",
+        "ICT_GVA_flag": "all_missing",
+        "ICT_EMP_flag": "all_missing",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Czechia",
+        "ICT_GVA": "4.57",
+        "ICT_EMP": "3.2619999999999996",
+        "ICT_RnD": "25.403333333333336",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Denmark",
+        "ICT_GVA": "4.321666666666666",
+        "ICT_EMP": "3.6749999999999994",
+        "ICT_RnD": "10.6",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Estonia",
+        "ICT_GVA": "5.414444444444444",
+        "ICT_EMP": "4.4911111111111115",
+        "ICT_RnD": "46.926",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Finland",
+        "ICT_GVA": "5.268571428571428",
+        "ICT_EMP": "3.93",
+        "ICT_RnD": "36.230000000000004",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "France",
+        "ICT_GVA": "4.2555555555555555",
+        "ICT_EMP": "3.112",
+        "ICT_RnD": "18.662",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Georgia",
+        "ICT_GVA": "",
+        "ICT_EMP": "",
+        "ICT_RnD": "",
+        "ICT_GVA_flag": "",
+        "ICT_EMP_flag": "",
+        "ICT_RnD_flag": ""
+    },
+    {
+        "country": "Germany",
+        "ICT_GVA": "4.368",
+        "ICT_EMP": "3.0189999999999997",
+        "ICT_RnD": "10.920000000000002",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Greece",
+        "ICT_GVA": "2.621",
+        "ICT_EMP": "1.5749999999999997",
+        "ICT_RnD": "23.8525",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Hungary",
+        "ICT_GVA": "5.753",
+        "ICT_EMP": "3.694",
+        "ICT_RnD": "14.09",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Iceland",
+        "ICT_GVA": "4.075",
+        "ICT_EMP": "3.6199999999999997",
+        "ICT_RnD": "27.218888888888888",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Ireland",
+        "ICT_GVA": "32.86",
+        "ICT_EMP": "6.116666666666667",
+        "ICT_RnD": "50.47",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Italy",
+        "ICT_GVA": "3.2425",
+        "ICT_EMP": "2.48875",
+        "ICT_RnD": "15.958333333333334",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Latvia",
+        "ICT_GVA": "5.390000000000001",
+        "ICT_EMP": "3.9849999999999994",
+        "ICT_RnD": "40.29666666666667",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Liechtenstein",
+        "ICT_GVA": "",
+        "ICT_EMP": "",
+        "ICT_RnD": "",
+        "ICT_GVA_flag": "",
+        "ICT_EMP_flag": "",
+        "ICT_RnD_flag": ""
+    },
+    {
+        "country": "Lithuania",
+        "ICT_GVA": "3.5730000000000004",
+        "ICT_EMP": "2.93",
+        "ICT_RnD": "23.570000000000004",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Luxembourg",
+        "ICT_GVA": "",
+        "ICT_EMP": "",
+        "ICT_RnD": "",
+        "ICT_GVA_flag": "",
+        "ICT_EMP_flag": "",
+        "ICT_RnD_flag": ""
+    },
+    {
+        "country": "Macedonia",
+        "ICT_GVA": "4.345714285714286",
+        "ICT_EMP": "2.15",
+        "ICT_RnD": "",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "all_missing"
+    },
+    {
+        "country": "Malta",
+        "ICT_GVA": "8.291111111111112",
+        "ICT_EMP": "4.4399999999999995",
+        "ICT_RnD": "49.75555555555556",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Moldova",
+        "ICT_GVA": "",
+        "ICT_EMP": "",
+        "ICT_RnD": "",
+        "ICT_GVA_flag": "",
+        "ICT_EMP_flag": "",
+        "ICT_RnD_flag": ""
+    },
+    {
+        "country": "Netherlands",
+        "ICT_GVA": "5.256666666666667",
+        "ICT_EMP": "3.746666666666666",
+        "ICT_RnD": "",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "all_missing"
+    },
+    {
+        "country": "Norway",
+        "ICT_GVA": "3.4155555555555557",
+        "ICT_EMP": "3.196",
+        "ICT_RnD": "30.416666666666668",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Poland",
+        "ICT_GVA": "3.554",
+        "ICT_EMP": "2.621",
+        "ICT_RnD": "27.964",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Portugal",
+        "ICT_GVA": "4.335",
+        "ICT_EMP": "2.85",
+        "ICT_RnD": "23.524",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Romania",
+        "ICT_GVA": "3.9110000000000005",
+        "ICT_EMP": "2.6310000000000002",
+        "ICT_RnD": "19.23777777777778",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Serbia",
+        "ICT_GVA": "5.464",
+        "ICT_EMP": "1.95",
+        "ICT_RnD": "9.534",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Slovakia",
+        "ICT_GVA": "4.311999999999999",
+        "ICT_EMP": "3.307",
+        "ICT_RnD": "21.60125",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Slovenia",
+        "ICT_GVA": "3.8800000000000003",
+        "ICT_EMP": "2.848",
+        "ICT_RnD": "9.577499999999999",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Spain",
+        "ICT_GVA": "3.4",
+        "ICT_EMP": "2.57",
+        "ICT_RnD": "17.55333333333333",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "Sweden",
+        "ICT_GVA": "6.44",
+        "ICT_EMP": "4.747142857142856",
+        "ICT_RnD": "26.85",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    },
+    {
+        "country": "United Kingdom",
+        "ICT_GVA": "5.894",
+        "ICT_EMP": "3.5100000000000002",
+        "ICT_RnD": "14.7375",
+        "ICT_GVA_flag": "averaged",
+        "ICT_EMP_flag": "averaged",
+        "ICT_RnD_flag": "averaged"
+    }
+]

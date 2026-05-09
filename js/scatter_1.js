@@ -27,6 +27,13 @@ async function loadData() {
   nhPrices:         'NH Prices (€/kWh)',
   gdp:              'GDP per capita (USD)',
 };
+const regressionParams = {
+    'dcPerCapita,hhPrices':         { slope: 0.005500224044664439,  intercept: 0.24557562863833676 },  // H_0
+    'dcPerCapita,hhPrices,clean':   { slope: 0.009294842791605494,  intercept: 0.2255552259268553  },  // H_0C
+    'dcPctConsumption,hhPrices':    { slope: 0.008979088253278075,  intercept: 0.2669307282703828  },  // H_1
+    'dcPctConsumption,hhPrices,clean': { slope: 0.042988116099567764, intercept: 0.22962319873479525 }, // H_1C
+  };
+
 
   const filtered = cleaned.filter(r => r.dcPerCapita && r.hhPrices);
 
@@ -58,20 +65,46 @@ function buildChart(yKey,xKey) {
     ? allFiltered
     : allFiltered.filter(r => !isOutlier(r));
 
+const cleanSuffix = !showOutliers ? ',clean' : '';
+  const regKey = `${xKey},${yKey}${cleanSuffix}`;
+  const reg = regressionParams[regKey] ?? null;
+
+  // Build regression line dataset if params exist for this hypothesis
+  const regressionDataset = reg ? (() => {
+    const xVals = filtered.map(r => r[xKey]);
+    const xMin = Math.min(...xVals);
+    const xMax = Math.max(...xVals);
+    return {
+      label: `Regression${!showOutliers ? ' (clean)' : ''}`,
+      data: [
+        { x: xMin, y: reg.slope * xMin + reg.intercept },
+        { x: xMax, y: reg.slope * xMax + reg.intercept },
+      ],
+      type: 'line',
+      borderColor: 'rgba(255, 160, 0, 0.9)',
+      borderWidth: 2,
+      pointRadius: 0,
+      fill: false,
+      tension: 0,
+    };
+  })() : null;  
+
   if (chart) chart.destroy();
   chart = new Chart(document.getElementById('acquisitions'), {
     type: 'scatter',
     data: {
-      datasets: [{
-        label: `${axisLabels[xKey]}  vs ${axisLabels[yKey]}`,
-        data: filtered.map(r => ({ x: r[xKey], y: r[yKey], label: r.country })),
-        backgroundColor: filtered.map(r =>
-          isOutlier(r)
-            ? 'rgba(255, 60, 60, 0.8)'      // red = outlier
-            : 'rgba(99, 107, 255, 0.6)'     // blue = normal
-        ),
-
-      }]
+      datasets: [
+        {
+          label: `${axisLabels[xKey]}  vs ${axisLabels[yKey]}`,
+          data: filtered.map(r => ({ x: r[xKey], y: r[yKey], label: r.country })),
+          backgroundColor: filtered.map(r =>
+            isOutlier(r)
+              ? 'rgba(255, 60, 60, 0.8)'      // red = outlier
+              : 'rgba(99, 107, 255, 0.6)'     // blue = normal
+          ),
+        },
+        ...(regressionDataset ? [regressionDataset] : [])
+      ]
     },
     options: {
       scales: {

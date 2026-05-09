@@ -324,19 +324,22 @@
 
         <div style="display:grid; grid-template-columns:120px 1fr; gap:1.5rem; align-items:start; margin-top:1.5rem;">
 
-          <div id="ict-hyp-buttons" style="display:flex; flex-direction:column; gap:0.5rem;"></div>
+          <!-- sidebar buttons — ICT section -->
+            <select id="yAxis2">
+            <option value="dcPerCapita, ictGva">H_4 - DC/capita vs ICT GVA</option>
+            <option value="dcPerCapita, ictEmp">H_5 - DC/capita vs ICT Employment</option>
+            <option value="dcPerCapita, ictRnd">H_6 - DC/capita vs ICT R&D</option>
+            <option value="dcPctConsumption, ictGva">H_4b - DC Energy Share vs ICT GVA</option>
+            <option value="dcPctConsumption, ictEmp">H_5b - DC Energy Share vs ICT Employment</option>
+            <option value="dcPctConsumption, ictRnd">H_6b - DC Energy Share vs ICT R&D</option>
+          </select>
+          <button id="toggleOutliers2">Hide Outliers</button>
 
-          <div>
-            <div id="ict-scatter-stats" style="font-size:.85rem; font-family:var(--font-mono);
-              color:var(--text-light); margin-bottom:0.75rem;"></div>
-            <div class="chart-container">
-              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+              <!-- <div style="width: 500px;"><canvas id="dimensions"></canvas></div><br/> -->
+              <div style="width: 800px;"><canvas id="acquisitions2"></canvas></div>
 
-              <canvas id="ict-scatter-canvas" style="max-height:400px;"
-                aria-label="ICT hypothesis scatter plot" role="img"></canvas>
-
-            </div>
-          </div>
+              <!-- <script type="module" src="dimensions.js"></script> -->
+          <script type="module" src="js/scatter_2.js"></script>
 
         </div>
         <!-- ── END SCATTER EXPLORER ───────────────────────────────── -->
