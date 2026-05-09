@@ -147,7 +147,7 @@ function getIQROutliers(arr) {
     });
   }
 // Initial render
-buildChart('ictEmp', 'dcPerCapita');
+buildChart('ictGva', 'dcPctConsumption');
 
 document.getElementById('yAxis2').addEventListener('change', (e) => {
   const [xKey, yKey] = e.target.value.split(',').map(s => s.trim());
