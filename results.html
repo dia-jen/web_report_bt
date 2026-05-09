@@ -92,7 +92,6 @@
               <th>ρ</th>
               <th>p-value</th>
               <th>n</th>
-              <th>Significance</th>
             </tr>
           </thead>
           <tbody>
@@ -103,7 +102,6 @@
               <td class="num-cell p-high">0.550</td>
               <td class="num-cell p-high">0.000613</td>
               <td class="num-cell">31</td>
-              <td><span class="sig sig--high">*** p&lt;0.001</span></td>
             </tr>
             <tr>
               <td><strong>H1</strong></td>
@@ -112,7 +110,6 @@
               <td class="num-cell p-high">0.573</td>
               <td class="num-cell p-high">0.000397</td>
               <td class="num-cell">29</td>
-              <td><span class="sig sig--high">*** p&lt;0.001</span></td>
             </tr>
             <tr>
               <td><strong>H2</strong></td>
@@ -121,7 +118,6 @@
               <td class="num-cell p-none">0.298</td>
               <td class="num-cell p-none">0.091579</td>
               <td class="num-cell">29</td>
-              <td><span class="sig sig--none">† p&lt;0.10</span></td>
             </tr>
             <tr>
               <td><strong>H3</strong></td>
@@ -130,7 +126,6 @@
               <td class="num-cell p-none">0.299</td>
               <td class="num-cell p-none">0.091488</td>
               <td class="num-cell">29</td>
-              <td><span class="sig sig--none">† p&lt;0.10</span></td>
             </tr>
           </tbody>
         </table>
@@ -150,7 +145,6 @@
               <th>Hypothesis</th>
               <th>Variables</th>
               <th>R²</th>
-              <th>Adjusted R²</th>
               <th>n (after IQR)</th>
             </tr>
           </thead>
@@ -160,7 +154,6 @@
               <td><strong>H0</strong></td>
               <td>HH_E_P ~ DC_SHARE</td>
               <td class="num-cell">0.145</td>
-              <td class="num-cell">—</td>
               <td class="num-cell">31</td>
             </tr>
             <tr>
@@ -168,7 +161,6 @@
               <td><strong>H0</strong></td>
               <td>HH_E_P ~ DC_SHARE + GDP_PC</td>
               <td class="num-cell p-mid">0.292</td>
-              <td class="num-cell">—</td>
               <td class="num-cell">31</td>
             </tr>
             <tr>
@@ -176,7 +168,6 @@
               <td><strong>H1</strong></td>
               <td>HH_E_P ~ DC_CAPITA</td>
               <td class="num-cell">0.161</td>
-              <td class="num-cell">—</td>
               <td class="num-cell">29</td>
             </tr>
             <tr>
@@ -184,7 +175,6 @@
               <td><strong>H1</strong></td>
               <td>HH_E_P ~ DC_CAPITA + GDP_PC</td>
               <td class="num-cell p-mid">0.319</td>
-              <td class="num-cell">—</td>
               <td class="num-cell">29</td>
             </tr>
           </tbody>
@@ -254,7 +244,6 @@
               <th>ρ</th>
               <th>p-value</th>
               <th>n</th>
-              <th>Significance</th>
             </tr>
           </thead>
           <tbody>
@@ -265,7 +254,6 @@
               <td class="num-cell p-none">0.206</td>
               <td class="num-cell p-none">0.267</td>
               <td class="num-cell">31</td>
-              <td><span class="sig sig--none">ns</span></td>
             </tr>
             <tr>
               <td><strong>H5</strong></td>
@@ -274,7 +262,6 @@
               <td class="num-cell p-high">0.703</td>
               <td class="num-cell p-high">0.00002</td>
               <td class="num-cell">29</td>
-              <td><span class="sig sig--high">*** p&lt;0.001</span></td>
             </tr>
             <tr>
               <td><strong>H6</strong></td>
@@ -283,7 +270,6 @@
               <td class="num-cell p-none">0.192</td>
               <td class="num-cell p-none">0.318</td>
               <td class="num-cell">29</td>
-              <td><span class="sig sig--none">ns</span></td>
             </tr>
             <tr>
               <td><strong>H4b</strong></td>
@@ -292,7 +278,6 @@
               <td class="num-cell p-none">0.340</td>
               <td class="num-cell p-none">0.061</td>
               <td class="num-cell">31</td>
-              <td><span class="sig sig--none">† p&lt;0.10</span></td>
             </tr>
             <tr>
               <td><strong>H5b</strong></td>
@@ -301,7 +286,6 @@
               <td class="num-cell p-mid">0.364</td>
               <td class="num-cell p-mid">0.052</td>
               <td class="num-cell">29</td>
-              <td><span class="sig sig--mid">* p&lt;0.05</span></td>
             </tr>
             <tr>
               <td><strong>H6b</strong></td>
@@ -310,11 +294,58 @@
               <td class="num-cell p-high">0.559</td>
               <td class="num-cell p-high">0.00162</td>
               <td class="num-cell">29</td>
-              <td><span class="sig sig--high">** p&lt;0.01</span></td>
             </tr>
           </tbody>
         </table>
+          <!-- H0/H1: OLS REGRESSION -->
+        <h3>OLS Regression — H0 &amp; H1 (statistically significant results only)</h3>
+        <p>
+          For H0 and H1, OLS regression was run with and without GDP per capita as a control variable.
+          Including GDP per capita substantially improved explanatory power, suggesting that economic
+          development — rather than data centers directly — partially explains higher electricity prices.
+        </p>
 
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Hypothesis</th>
+              <th>Variables</th>
+              <th>R²</th>
+              <th>n (after IQR)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Simple OLS</td>
+              <td><strong>H5</strong></td>
+              <td>HH_E_P ~ DC_SHARE</td>
+              <td class="num-cell">0.145</td>
+              <td class="num-cell">31</td>
+            </tr>
+            <tr>
+              <td>OLS + GDP control</td>
+              <td><strong>H5</strong></td>
+              <td>HH_E_P ~ DC_SHARE + GDP_PC</td>
+              <td class="num-cell p-mid">0.292</td>
+              <td class="num-cell">31</td>
+            </tr>
+            <tr>
+              <td>Simple OLS</td>
+              <td><strong>H1</strong></td>
+              <td>HH_E_P ~ DC_CAPITA</td>
+              <td class="num-cell">0.161</td>
+              <td class="num-cell">29</td>
+            </tr>
+            <tr>
+              <td>OLS + GDP control</td>
+              <td><strong>H1</strong></td>
+              <td>HH_E_P ~ DC_CAPITA + GDP_PC</td>
+              <td class="num-cell p-mid">0.319</td>
+              <td class="num-cell">29</td>
+            </tr>
+          </tbody>
+        </table>
     
 
         <!-- ── SCATTER EXPLORER (H4–H6b) ──────────────────────────── -->
@@ -326,12 +357,12 @@
 
           <!-- sidebar buttons — ICT section -->
             <select id="yAxis2">
-            <option value="dcPerCapita, ictGva">H_4 - DC/capita vs ICT GVA</option>
+            <option value="dcPctConsumption, ictGva">H_4 - DC Energy Share vs ICT GVA</option>
             <option value="dcPerCapita, ictEmp">H_5 - DC/capita vs ICT Employment</option>
-            <option value="dcPerCapita, ictRnd">H_6 - DC/capita vs ICT R&D</option>
-            <option value="dcPctConsumption, ictGva">H_4b - DC Energy Share vs ICT GVA</option>
+            <option value="dcPctConsumption, ictRnd">H_6 - DC Energy Share vs ICT R&D</option>
+            <option value="dcPerCapita, ictGva">H_4b - DC/capita vs ICT GVA</option>
             <option value="dcPctConsumption, ictEmp">H_5b - DC Energy Share vs ICT Employment</option>
-            <option value="dcPctConsumption, ictRnd">H_6b - DC Energy Share vs ICT R&D</option>
+            <option value="dcPerCapita, ictRnd">H_6b - DC/capita vs ICT R&D</option>
           </select>
           <button id="toggleOutliers2">Hide Outliers</button>
 
@@ -402,21 +433,18 @@
         <h2>Download the Data</h2>
         <div class="rule"></div>
         <p>
-          All datasets used in this analysis are available for download. The archive includes raw CSVs
+          All datasets and scripts used in this analysis are available for download. The archive includes raw CSVs
           for energy prices, ICT variables, GDP per capita, and data center counts by country, as well
           as the cleaned datasets used in regression analysis.
         </p>
         <div class="download-buttons">
-          <a href="data/download/thesis-data.zip" download="thesis-data.zip" class="btn btn--primary">
+          <a href="download/thesis-data.zip" download="thesis-data.zip" class="btn btn--primary">
             ↓ Download All Data (ZIP)
           </a>
-          <a href="data/spearman-results.csv" download class="btn btn--outline">
-            ↓ Spearman Results (CSV)
+          <a href="data/results.csv" download class="btn btn--outline">
+            ↓ Results (CSV)
           </a>
-          <a href="data/ols-results.csv" download class="btn btn--outline">
-            ↓ OLS Results (CSV)
-          </a>
-          <a href="data/download/thesis-analysis.zip" download class="btn btn--outline">
+          <a href="download/thesis-analysis.zip" download class="btn btn--outline">
             ↓ Analysis DATA & SCRIPTS (.ipynb, .py)
           </a>
         </div>
