@@ -1,5 +1,3 @@
-// import Chart from 'chart.js/auto'
-
 const Chart = window.Chart;
 
 async function loadData() {

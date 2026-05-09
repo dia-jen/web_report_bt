@@ -1,5 +1,3 @@
-// import Chart from 'chart.js/auto'
-
 const Chart = window.Chart;
 
 async function loadData() {
@@ -53,7 +51,7 @@ async function loadData() {
   gdp:              'GDP per capita (USD)',
 };
 
-  const filtered = cleaned.filter(r => r.dcPerCapita && r.ictEmp);
+const filtered = cleaned.filter(r => r.dcPerCapita && r.ictEmp);
 
 let chart;
 let showOutliers = true;
