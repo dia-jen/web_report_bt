@@ -5,10 +5,140 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hypotheses · Living Along Data Centers</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+    .intro-box {
+      background: var(--color-bg-subtle, #f8f8f6);
+      border-radius: 12px;
+      padding: 1.5rem 1.75rem;
+      margin: 1.5rem 0 2.5rem;
+    }
+    .intro-box p { margin-bottom: .75rem; }
+    .intro-box p:last-child { margin-bottom: 0; }
+
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--color-border, #e8e6df);
+    }
+    .section-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 24px;
+    }
+    .section-icon.price { background: #FAEEDA; color: #854F0B; }
+    .section-icon.ict   { background: #E1F5EE; color: #0F6E56; }
+    .section-title h2 { margin-bottom: .3rem; }
+    .section-title p { font-size: .9rem; opacity: .7; margin: 0; }
+
+    .hyp-grid {
+      display: grid;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .hyp-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+    .hyp-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+    .hyp-card {
+      border: 1px solid var(--color-border, #e8e6df);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      background: #fff;
+    }
+    .hyp-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .q-label {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: #999;
+    }
+    .dir-pill {
+      font-size: .7rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .dir-pill.price { background: #FAEEDA; color: #854F0B; }
+    .dir-pill.ict   { background: #E1F5EE; color: #0F6E56; }
+
+    .hyp-card h3 {
+      font-size: .95rem;
+      font-weight: 600;
+      line-height: 1.45;
+      margin: 0;
+    }
+    .hyp-card-divider {
+      border: none;
+      border-top: 1px solid var(--color-border, #e8e6df);
+      margin: 0;
+    }
+    .what-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .75rem;
+    }
+    .what-col .col-label {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-bottom: 3px;
+    }
+    .what-col p {
+      font-size: .8rem;
+      line-height: 1.5;
+      margin: 0;
+      color: #555;
+    }
+    .why-box {
+      background: var(--color-bg-subtle, #f8f8f6);
+      border-radius: 8px;
+      padding: .6rem .8rem;
+    }
+    .why-box .col-label {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-bottom: 3px;
+    }
+    .why-box p {
+      font-size: .8rem;
+      line-height: 1.5;
+      margin: 0;
+      color: #555;
+    }
+
+    @media (max-width: 700px) {
+      .hyp-grid.cols-2,
+      .hyp-grid.cols-3 { grid-template-columns: 1fr; }
+      .what-row { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- NAVIGATION -->
   <nav>
     <a href="index.html" class="nav-brand">Living Along Data Centers</a>
     <ul class="nav-links">
@@ -21,220 +151,229 @@
 
   <main class="page">
 
-    <!-- PAGE HEADER -->
     <section id="page-header">
       <div class="container--narrow">
-        <h1>Research Hypotheses</h1>
+        <h1>What Were We Actually Testing?</h1>
         <div class="rule"></div>
-        <p>
-          The empirical analysis is divided into two categories. The first set — Price Hypotheses (H0–H3) —
-          tests whether data center intensity is associated with higher electricity costs for local
-          residents and businesses. The second set — ICT Sector Hypotheses (H4–H6) — explores
-          whether hosting data centers corresponds with broader shifts in the national ICT economy.
-        </p>
-        <p>
-          All hypotheses are tested using Spearman's rank correlation, chosen for its robustness to
-          outliers and non-normal distributions. For statistically significant results, OLS regression
-          with GDP per capita as a control variable is also applied.
-        </p>
+        <div class="intro-box">
+          <p>
+            Before diving into results, it helps to know what questions this research set out to answer.
+            There are two big ones: do data centers push up electricity prices for people living nearby?
+            And do they bring real economic benefits — like tech jobs and innovation — or is that just
+            something companies say to get planning permission?
+          </p>
+          <p>
+            Each question was broken down into a specific, testable statement. For every statement,
+            the analysis checked whether a real pattern exists across 35 European countries — or whether
+            any apparent link could just be random noise.
+          </p>
+        </div>
       </div>
     </section>
 
-    <!-- CATEGORY 1: PRICE -->
     <section id="price-hypotheses">
       <div class="container">
-        <h2>Price Hypotheses — H0 to H3</h2>
-        <div class="rule"></div>
-        <p>
-          Modern AI workloads require up to 100× more computational power than traditional operations,
-          causing hyperscale data centers to dramatically shift regional electricity demand curves.
-          These hypotheses test whether this demand pressure is visible in electricity prices paid
-          by households and businesses.
-        </p>
-
-        <!-- H0 -->
-        <div class="hypothesis-card">
-  
-          <h3><span class="hyp-id">H0:</span> Household electricity prices × DC energy consumption share</h3>
-          <p class="hyp-statement">
-            <strong>H1 (alternative):</strong> There is a positive correlation between household electricity prices
-            and the data center share of national energy consumptcoeion.
-          </p>
-          <p class="hyp-statement">
-            <strong>H0 (null):</strong> There is no  correlation.
-          </p>
-          <div class="hyp-meta">
-            <div class="hyp-direction">
-              <span class="label">Expected direction</span>
-              <span class="direction-positive">Positive ↑</span>
-            </div>
-            <div class="hyp-rationale">
-              <span class="label">Rationale</span>
-              <p>A higher share of national electricity consumed by data centers indicates systemic demand pressure on the grid. This hypothesis examines whether that pressure translates into higher costs for everyday households.</p>
-            </div>
+        <div class="section-header">
+          <div class="section-icon price">
+            <i class="ti ti-bolt"></i>
+          </div>
+          <div class="section-title">
+            <h2>Does living with data centers make electricity more expensive?</h2>
+            <p>AI data centers use up to 100× more power per task than older computing. Four questions test whether that demand pressure shows up in what households and businesses pay.</p>
           </div>
         </div>
 
-        <!-- H1 -->
-        <div class="hypothesis-card">
-          <h3><span class="hyp-id">H1:</span> Household electricity prices × data centers per capita</h3>
-          <p class="hyp-statement">
-            <strong>H1 (alternative):</strong> There is a positive correlation between household electricity prices
-            and the number of data centers per million inhabitants.
-          </p>
-          <p class="hyp-statement">
-            <strong>H0 (null):</strong> There is no  correlation.
-          </p>
-          <div class="hyp-meta">
-            <div class="hyp-direction">
-              <span class="label">Expected direction</span>
-              <span class="direction-positive">Positive ↑</span>
+        <div class="hyp-grid cols-2">
+          <div class="hyp-card">
+            <div class="hyp-card-top">
+              <span class="q-label">Question 1</span>
+              <span class="dir-pill price"><i class="ti ti-trending-up" style="font-size:12px"></i> Higher prices expected</span>
             </div>
-            <div class="hyp-rationale">
-              <span class="label">Rationale</span>
-              <p>Regions with a greater number of data centers relative to their population may experience localized infrastructure strain. This hypothesis captures potential regional effects not visible at the aggregate energy level.</p>
+            <h3>Do countries where data centers use more of the national electricity supply also have higher household bills?</h3>
+            <hr class="hyp-card-divider">
+            <div class="what-row">
+              <div class="what-col">
+                <div class="col-label">Looking for</div>
+                <p>Energy share of data centers tracks household price per kWh</p>
+              </div>
+              <div class="what-col">
+                <div class="col-label">The alternative</div>
+                <p>The two move independently — no pattern</p>
+              </div>
+            </div>
+            <div class="why-box">
+              <div class="col-label">Why it matters</div>
+              <p>When data centers devour a big chunk of national power, does that pressure travel down to ordinary monthly bills?</p>
+            </div>
+          </div>
+
+          <div class="hyp-card">
+            <div class="hyp-card-top">
+              <span class="q-label">Question 2</span>
+              <span class="dir-pill price"><i class="ti ti-trending-up" style="font-size:12px"></i> Higher prices expected</span>
+            </div>
+            <h3>Do countries with more data centers per person have higher household electricity prices?</h3>
+            <hr class="hyp-card-divider">
+            <div class="what-row">
+              <div class="what-col">
+                <div class="col-label">Looking for</div>
+                <p>Higher data center density per capita links to higher household tariffs</p>
+              </div>
+              <div class="what-col">
+                <div class="col-label">The alternative</div>
+                <p>No consistent pattern between density and price</p>
+              </div>
+            </div>
+            <div class="why-box">
+              <div class="col-label">Why it matters</div>
+              <p>A different angle — sheer number of facilities, not just energy consumption. Both views are worth testing.</p>
+            </div>
+          </div>
+
+          <div class="hyp-card">
+            <div class="hyp-card-top">
+              <span class="q-label">Question 3</span>
+              <span class="dir-pill price"><i class="ti ti-trending-up" style="font-size:12px"></i> Higher prices expected</span>
+            </div>
+            <h3>Do businesses pay more for electricity where data centers consume more national energy?</h3>
+            <hr class="hyp-card-divider">
+            <div class="what-row">
+              <div class="what-col">
+                <div class="col-label">Looking for</div>
+                <p>High data center energy share links to higher non-household electricity tariffs</p>
+              </div>
+              <div class="what-col">
+                <div class="col-label">The alternative</div>
+                <p>No significant relationship between the two</p>
+              </div>
+            </div>
+            <div class="why-box">
+              <div class="col-label">Why it matters</div>
+              <p>Businesses buy electricity differently to households — do they absorb this cost too, or are they insulated from it?</p>
+            </div>
+          </div>
+
+          <div class="hyp-card">
+            <div class="hyp-card-top">
+              <span class="q-label">Question 4</span>
+              <span class="dir-pill price"><i class="ti ti-trending-up" style="font-size:12px"></i> Higher prices expected</span>
+            </div>
+            <h3>Do businesses pay more for electricity in countries with more data centers per person?</h3>
+            <hr class="hyp-card-divider">
+            <div class="what-row">
+              <div class="what-col">
+                <div class="col-label">Looking for</div>
+                <p>More data centers per capita links to pricier non-household electricity</p>
+              </div>
+              <div class="what-col">
+                <div class="col-label">The alternative</div>
+                <p>No clear relationship</p>
+              </div>
+            </div>
+            <div class="why-box">
+              <div class="col-label">Why it matters</div>
+              <p>Clustered data centers can create a local demand spike. Does that cost fall differently on companies versus residents?</p>
             </div>
           </div>
         </div>
-
-        <!-- H2 -->
-        <div class="hypothesis-card">
-          <h3> <span class="hyp-id">H2:</span> Non-household electricity prices × DC energy consumption share</h3>
-          <p class="hyp-statement">
-            <strong>H1 (alternative):</strong> There is a positive correlation between non-household electricity prices
-            and the data center share of national energy consumption.
-          </p>
-          <p class="hyp-statement">
-            <strong>H0 (null):</strong> There is no  correlation.
-          </p>
-          <div class="hyp-meta">
-            <div class="hyp-direction">
-              <span class="label">Expected direction</span>
-              <span class="direction-positive">Positive ↑</span>
-            </div>
-            <div class="hyp-rationale">
-              <span class="label">Rationale</span>
-              <p>Commercial and industrial consumers operate under different pricing mechanisms than households, often being more exposed to market dynamics. This hypothesis evaluates whether data center energy demand is reflected in business electricity tariffs.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- H3 -->
-        <div class="hypothesis-card">
-          <h3> <span class="hyp-id">H3:</span> Non-household electricity prices × data centers per capita</h3>
-          <p class="hyp-statement">
-            <strong>H1 (alternative):</strong> There is a positive correlation between non-household electricity prices
-            and the number of data centers per million inhabitants.
-          </p>
-          <p class="hyp-statement">
-            <strong>H0 (null):</strong> There is no  correlation.
-          </p>
-          <div class="hyp-meta">
-            <div class="hyp-direction">
-              <span class="label">Expected direction</span>
-              <span class="direction-positive">Positive ↑</span>
-            </div>
-            <div class="hyp-rationale">
-              <span class="label">Rationale</span>
-              <p>The geographic concentration of data centers can create localized demand shocks. This hypothesis tests whether  clustering is linked to electricity prices for non-household consumers and whether the burden falls differently across consumer groups.</p>
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
 
-    <!-- CATEGORY 2: ICT -->
     <section id="ict-hypotheses">
       <div class="container">
-        <h2>ICT Sector Hypotheses — H4 to H6</h2>
-        <div class="rule"></div>
-        <p>
-          While data centers require minimal permanent local workforce, this set of hypotheses tests
-          whether extreme infrastructural density functions as a broader economic anchor — driving
-          ICT employment, gross value added, and R&amp;D investment at the national level.
-          This directly addresses the "job paradox" discussed in the literature.
-        </p>
-
-        <!-- H4 -->
-        <div class="hypothesis-card">
-          <h3><span class="hyp-id">H4:</span> ICT Gross Value Added × data center concentration</h3>
-          <p class="hyp-statement">
-            <strong>H1 (alternative):</strong> There is a positive correlation between a country's ICT sector GVA
-            and its data center concentration (tested against both DC_SHARE and DC_CAPITA).
-          </p>
-          <p class="hyp-statement">
-            <strong>H0 (null):</strong> There is no  correlation.
-          </p>
-          <div class="hyp-meta">
-            <div class="hyp-direction">
-              <span class="label">Expected direction</span>
-              <span class="direction-positive">Positive ↑</span>
-            </div>
-            <div class="hyp-rationale">
-              <p>Extensive data center infrastructure may contribute to the overall economic output of the ICT sector. This hypothesis determines whether data centers act as drivers of measurable economic productivity at the national level.</p>
-            </div>
+        <div class="section-header">
+          <div class="section-icon ict">
+            <i class="ti ti-building-factory-2"></i>
+          </div>
+          <div class="section-title">
+            <h2>Do data centers actually help the local economy?</h2>
+            <p>Data centers are sold as economic wins. But a modern facility might employ only a few dozen people full-time despite being the size of several football pitches — the "job paradox." Three questions test whether the benefits are real.</p>
           </div>
         </div>
 
-        <!-- H5 -->
-        <div class="hypothesis-card">
-          <h3>  <span class="hyp-id">H5:</span> ICT employment share × data center concentration</h3>
-          <p class="hyp-statement">
-            <strong>H1 (alternative):</strong> There is a positive correlation between the share of ICT employment
-            and data center concentration.
-          </p>
-          <p class="hyp-statement">
-            <strong>H0 (null):</strong> There is no  correlation.
-          </p>
-          <div class="hyp-meta">
-            <div class="hyp-direction">
-              <span class="label">Expected direction</span>
-              <span class="direction-positive">Positive ↑</span>
+        <div class="hyp-grid cols-3">
+          <div class="hyp-card">
+            <div class="hyp-card-top">
+              <span class="q-label">Question 5</span>
+              <span class="dir-pill ict"><i class="ti ti-trending-up" style="font-size:12px"></i> Growth expected</span>
             </div>
-            <div class="hyp-rationale">
-              <p>Despite their scale, data centers require relatively few direct workers once operational. This hypothesis examines whether their presence is nevertheless associated with broader ICT job creation through indirect or spillover effects.</p>
+            <h3>Do countries with more data centers have a larger, more productive tech sector overall?</h3>
+            <hr class="hyp-card-divider">
+            <div class="what-row">
+              <div class="what-col">
+                <div class="col-label">Looking for</div>
+                <p>DC concentration links to higher ICT gross value added</p>
+              </div>
+              <div class="what-col">
+                <div class="col-label">The alternative</div>
+                <p>No meaningful relationship</p>
+              </div>
+            </div>
+            <div class="why-box">
+              <div class="col-label">Why it matters</div>
+              <p>The most direct economic test — does infrastructure density actually show up in national accounts?</p>
+            </div>
+          </div>
+
+          <div class="hyp-card">
+            <div class="hyp-card-top">
+              <span class="q-label">Question 6</span>
+              <span class="dir-pill ict"><i class="ti ti-trending-up" style="font-size:12px"></i> More jobs expected</span>
+            </div>
+            <h3>Do countries with more data centers have a higher share of workers in tech jobs?</h3>
+            <hr class="hyp-card-divider">
+            <div class="what-row">
+              <div class="what-col">
+                <div class="col-label">Looking for</div>
+                <p>Denser DC infrastructure links to a higher ICT employment share</p>
+              </div>
+              <div class="what-col">
+                <div class="col-label">The alternative</div>
+                <p>No consistent link between density and tech employment</p>
+              </div>
+            </div>
+            <div class="why-box">
+              <div class="col-label">Why it matters</div>
+              <p>Data centers hire few people directly — but do they attract cloud providers and startups that do?</p>
+            </div>
+          </div>
+
+          <div class="hyp-card">
+            <div class="hyp-card-top">
+              <span class="q-label">Question 7</span>
+              <span class="dir-pill ict"><i class="ti ti-trending-up" style="font-size:12px"></i> More R&amp;D expected</span>
+            </div>
+            <h3>Do countries with more data centers invest more in tech research and development?</h3>
+            <hr class="hyp-card-divider">
+            <div class="what-row">
+              <div class="what-col">
+                <div class="col-label">Looking for</div>
+                <p>Higher DC concentration links to greater business spending on ICT R&amp;D</p>
+              </div>
+              <div class="what-col">
+                <div class="col-label">The alternative</div>
+                <p>No significant pattern</p>
+              </div>
+            </div>
+            <div class="why-box">
+              <div class="col-label">Why it matters</div>
+              <p>Dense infrastructure might pull innovation with it — does the national data agree?</p>
             </div>
           </div>
         </div>
-
-        <!-- H6 -->
-        <div class="hypothesis-card">
-
-          <h3><span class="hyp-id">H6:</span> ICT R&amp;D spending × data center concentration</h3>
-          <p class="hyp-statement">
-            <strong>H1 (alternative):</strong> There is a positive correlation between ICT R&amp;D spending (BERD)
-            and data center concentration.
-          </p>
-          <p class="hyp-statement">
-            <strong>H0 (null):</strong> There is no  correlation.
-          </p>
-          <div class="hyp-meta">
-            <div class="hyp-direction">
-              <span class="label">Expected direction</span>
-              <span class="direction-positive">Positive ↑</span>
-            </div>
-            <div class="hyp-rationale">
-              <p>Sustaining and expanding data center infrastructure requires continuous technological innovation. This hypothesis explores whether higher data center concentration is linked to increased ICT R&amp;D spending — testing whether capital intensity translates into stronger innovation activity.</p>
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
 
-    <!-- CTA -->
     <section id="cta">
       <div class="container--narrow">
-        <p>Hypotheses tested. Ready to see the results?</p>
-        <a href="results.html" class="btn btn--primary">View Results →</a>
+        <p>All seven questions tested. Here's what the data actually said.</p>
+        <a href="results.html" class="btn btn--primary">See the Results →</a>
         <a href="map.html" class="btn btn--outline">Explore the Data Map</a>
       </div>
     </section>
 
   </main>
 
-  <!-- FOOTER -->
   <footer>
     <div class="container">
       <div class="footer-left">

@@ -5,12 +5,203 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Explore Data · Living Along Data Centers</title>
   <link rel="stylesheet" href="css/style.css" />
-  <!-- D3.js v7 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <style>
+    /* ── Toolbar ── */
+    #map-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 1.1rem;
+    }
+    #map-controls label {
+      font-size: .85rem;
+      color: var(--color-text-secondary, #666);
+      white-space: nowrap;
+    }
+    #variable-select {
+      font-size: .85rem;
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--color-border, #ddd);
+      background: #fff;
+      cursor: pointer;
+      flex: 1;
+      min-width: 220px;
+      max-width: 340px;
+    }
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 130px;
+      max-width: 210px;
+    }
+    .search-wrap i {
+      position: absolute;
+      left: 9px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 15px; color: #bbb;
+      pointer-events: none;
+    }
+    .search-wrap input {
+      width: 100%;
+      padding: 7px 10px 7px 30px;
+      font-size: .85rem;
+      border-radius: 8px;
+      border: 1px solid var(--color-border, #ddd);
+      background: #fff;
+    }
+    .view-btns {
+      display: flex;
+      border: 1px solid var(--color-border, #ddd);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-left: auto;
+    }
+    .view-btn {
+      padding: 7px 14px;
+      font-size: .8rem;
+      font-weight: 600;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #999;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .view-btn.active { background: var(--color-bg-subtle, #f5f4f0); color: #111; }
+
+    /* ── Stat cards ── */
+    #stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 1.1rem;
+    }
+    @media (max-width: 580px) { #stat-row { grid-template-columns: repeat(2, 1fr); } }
+    .stat-card {
+      background: var(--color-bg-subtle, #f5f4f0);
+      border-radius: 8px;
+      padding: .75rem 1rem;
+    }
+    .sc-label {
+      font-size: .68rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .05em;
+      color: #aaa; margin-bottom: 4px;
+    }
+    .sc-val { font-size: 1.2rem; font-weight: 700; color: #111; }
+    .sc-sub { font-size: .72rem; color: #aaa; margin-top: 2px; }
+
+    /* ── Map panel ── */
+    #map-panel {
+      border: 1px solid var(--color-border, #e5e3db);
+      border-radius: 12px;
+      background: #fff;
+      margin-bottom: 1.1rem;
+      overflow: hidden;
+    }
+    #map-container { position: relative; }
+    #europe-map { width: 100%; display: block; }
+    #map-tooltip {
+      position: absolute;
+      background: #fff;
+      border: 1px solid var(--color-border, #ddd);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: .78rem;
+      pointer-events: none;
+      display: none;
+      z-index: 10;
+      line-height: 1.55;
+      max-width: 200px;
+    }
+    #map-legend {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: .6rem 1.25rem;
+      border-top: 1px solid var(--color-border, #e5e3db);
+      flex-wrap: wrap;
+    }
+    #map-legend span { font-size: .72rem; color: #aaa; }
+    #legend-bar { border-radius: 3px; }
+    .outlier-legend {
+      display: flex; align-items: center; gap: 5px;
+      margin-left: auto; font-size: .72rem; color: #aaa;
+    }
+    .out-badge {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: #EF9F27; flex-shrink: 0;
+    }
+
+    /* ── Country detail strip ── */
+    #country-detail {
+      border-top: 1px solid var(--color-border, #e5e3db);
+      padding: .9rem 1.25rem;
+      display: none;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+    #country-detail.visible { display: flex; }
+    #cd-flag { font-size: 26px; flex-shrink: 0; }
+    #cd-info { flex: 1; min-width: 120px; }
+    #cd-name { font-size: .95rem; font-weight: 700; color: #111; }
+    #cd-rank { font-size: .72rem; color: #aaa; margin-top: 2px; }
+    #cd-val { font-size: 1.35rem; font-weight: 700; color: #d05f00; }
+    #cd-outlier {
+      font-size: .7rem; font-weight: 700;
+      padding: 3px 9px; border-radius: 100px;
+      background: #fff3cd; color: #856404; display: none;
+    }
+    #cd-close {
+      background: none; border: none; cursor: pointer;
+      font-size: 18px; color: #ccc; padding: 2px 6px;
+      line-height: 1; margin-left: auto;
+    }
+    #cd-close:hover { color: #888; }
+
+    /* ── Ranking panel ── */
+    #bar-panel {
+      border: 1px solid var(--color-border, #e5e3db);
+      border-radius: 12px;
+      background: #fff;
+      margin-bottom: 1.1rem;
+      display: none;
+    }
+    #bar-container { padding: 1rem 1.25rem; }
+    .bar-row {
+      display: flex; align-items: center;
+      gap: 8px; margin-bottom: 5px; cursor: pointer;
+    }
+    .bar-row:hover .bar-fill { opacity: .7; }
+    .bar-country {
+      font-size: .75rem; color: #555;
+      width: 96px; text-align: right; flex-shrink: 0;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .bar-track {
+      flex: 1; height: 22px;
+      background: #f5f4f0; border-radius: 3px; overflow: hidden;
+    }
+    .bar-fill { height: 100%; border-radius: 3px; transition: width .3s ease; }
+    .bar-val { font-size: .74rem; color: #888; width: 64px; flex-shrink: 0; }
+    .bar-out-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #EF9F27; flex-shrink: 0;
+    }
+
+    .data-note {
+      font-size: .78rem; color: #aaa;
+      margin-top: 1rem; line-height: 1.65;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- NAVIGATION -->
   <nav>
     <a href="index.html" class="nav-brand">Living Along Data Centers</a>
     <ul class="nav-links">
@@ -23,27 +214,25 @@
 
   <main class="page">
 
-    <!-- PAGE HEADER -->
     <section id="page-header">
       <div class="container">
         <p class="label">Interactive Map</p>
         <h1>Explore the Data by Country</h1>
         <div class="rule"></div>
         <p>
-          Select a variable from the dropdown below to see how it is distributed across European countries.
-          Hover over any country to see its name and value. Countries shown in grey have no data available
-          for the selected variable.
+          Pick a variable to colour the map. Click any country to pin its value and rank.
+          Use the search to highlight a country, or switch to the Ranking view to compare
+          all countries side by side. Grey means no data available.
         </p>
       </div>
     </section>
 
-    <!-- MAP CONTROLS + MAP -->
     <section id="map-section">
       <div class="container">
 
-        <!-- CONTROLS -->
+        <!-- TOOLBAR -->
         <div id="map-controls">
-          <label for="variable-select">Select variable:</label>
+          <label for="variable-select">Variable</label>
           <select id="variable-select">
             <optgroup label="Data Center Metrics">
               <option value="DC_CAPITA">Data Centers per Million Inhabitants</option>
@@ -62,39 +251,77 @@
               <option value="GDP">GDP per Capita (€)</option>
             </optgroup>
           </select>
-        </div>
 
-        <!-- MAP CONTAINER -->
-        <div id="map-container">
-          <svg id="europe-map"></svg>
-          <!-- Tooltip -->
-          <div id="map-tooltip" role="tooltip" aria-live="polite"></div>
-          <!-- Legend -->
-          <div id="map-legend">
-            <span id="legend-min"></span>
-            <svg id="legend-bar"></svg>
-            <span id="legend-max"></span>
+          <div class="search-wrap">
+            <i class="ti ti-search" aria-hidden="true"></i>
+            <input type="text" id="country-search" placeholder="Search country…" aria-label="Search country">
+          </div>
+
+          <div class="view-btns">
+            <button class="view-btn active" id="btn-map" onclick="setView('map')">
+              <i class="ti ti-map-2" aria-hidden="true"></i> Map
+            </button>
+            <button class="view-btn" id="btn-bar" onclick="setView('bar')">
+              <i class="ti ti-chart-bar" aria-hidden="true"></i> Ranking
+            </button>
           </div>
         </div>
 
-        <!-- DATA NOTE -->
+        <!-- STAT CARDS -->
+        <div id="stat-row"></div>
+
+        <!-- MAP PANEL -->
+        <div id="map-panel">
+          <div id="map-container">
+            <svg id="europe-map" role="img" aria-label="Choropleth map of Europe coloured by selected variable"></svg>
+            <div id="map-tooltip" role="tooltip" aria-live="polite"></div>
+          </div>
+          <div id="map-legend">
+            <span id="legend-min"></span>
+            <svg id="legend-bar" width="200" height="14"></svg>
+            <span id="legend-max"></span>
+            <span class="outlier-legend">
+              <span class="out-badge"></span>
+              IQR outlier — excluded from regression
+            </span>
+          </div>
+          <div id="country-detail">
+            <span id="cd-flag"></span>
+            <div id="cd-info">
+              <div id="cd-name"></div>
+              <div id="cd-rank"></div>
+            </div>
+            <div id="cd-val"></div>
+            <span id="cd-outlier">IQR outlier — excluded from OLS regression</span>
+            <button id="cd-close" onclick="closeDetail()" aria-label="Dismiss">
+              <i class="ti ti-x"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- RANKING PANEL -->
+        <div id="bar-panel">
+          <div id="bar-container"></div>
+        </div>
+
         <p class="data-note">
           <strong>Note:</strong> Data center counts are sourced from Data Center Map.
           Energy prices are from Eurostat (<code>nrg_pc_204</code>). ICT variables are from Eurostat.
           Missing values were filled via linear interpolation or manual research where possible.
           Countries with no available data are shown in grey.
+          Orange dots on the map mark countries excluded from OLS regression as IQR outliers.
         </p>
 
       </div>
     </section>
 
-    <!-- DATA TABLE -->
+    <!-- DATA TABLE — original structure kept intact -->
     <section id="data-table-section">
       <div class="container">
         <p class="label">Raw Data</p>
         <h2 id="table-heading">Data Centers per Million Inhabitants — All Countries</h2>
         <div class="rule"></div>
-        <p>The table below shows values for the currently selected variable, sorted by value descending. Countries flagged as IQR outliers in the regression analysis are marked.</p>
+        <p>All countries sorted by value, highest first. Countries highlighted in amber were excluded from the OLS regression as IQR outliers.</p>
         <table class="data-table" id="country-table">
           <thead>
             <tr>
@@ -103,16 +330,13 @@
               <th>IQR Outlier</th>
             </tr>
           </thead>
-          <tbody id="table-body">
-            <!-- filled by map.js -->
-          </tbody>
+          <tbody id="table-body"></tbody>
         </table>
       </div>
     </section>
 
   </main>
 
-  <!-- FOOTER -->
   <footer>
     <div class="container">
       <div class="footer-left">
@@ -127,5 +351,6 @@
     </div>
   </footer>
 
-<script src="js/map.js?v=3"></script></body>
+<script type="module" src="js/map.js?v=4"></script>
+</body>
 </html>
