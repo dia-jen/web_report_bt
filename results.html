@@ -5,12 +5,195 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Results · Living Along Data Centers</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <style>
+
+    /* ── Summary chips ── */
+    .results-summary-chips {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 600px) { .results-summary-chips { grid-template-columns: repeat(2,1fr); } }
+    .summary-chip {
+      background: var(--color-bg-subtle, #f5f4f0);
+      border-radius: 10px;
+      padding: .85rem 1rem;
+    }
+    .chip-num   { display: block; font-size: 1.5rem; font-weight: 700; color: #111; line-height: 1.1; }
+    .chip-label { display: block; font-size: .75rem; color: #888; margin-top: 4px; line-height: 1.4; }
+
+    /* ── Spearman overview chart ── */
+    #spearman-chart-container {
+      border: 1px solid var(--color-border, #e5e3db);
+      border-radius: 12px;
+      background: #fff;
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+    }
+    #spearman-chart-container canvas { max-height: 280px; }
+
+    /* ── Section label pill ── */
+    .sec-pill {
+      display: inline-block;
+      font-size: .7rem; font-weight: 700;
+      padding: 3px 11px; border-radius: 100px;
+      margin-bottom: .5rem;
+    }
+    .pill-price { background: #FAEEDA; color: #854F0B; }
+    .pill-ict   { background: #E1F5EE; color: #0F6E56; }
+
+    /* ── Significance colours on table cells ── */
+    .p-high { color: #0F6E56; font-weight: 700; }
+    .p-mid  { color: #854F0B; font-weight: 600; }
+    .p-none { color: #aaa; }
+
+    /* ── OLS R² visual cards ── */
+    .ols-visual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 1.25rem 0;
+    }
+    @media (max-width: 520px) { .ols-visual-grid { grid-template-columns: 1fr; } }
+    .ols-vcard {
+      border: 1px solid var(--color-border, #e5e3db);
+      border-radius: 10px;
+      padding: .9rem 1rem;
+      background: #fff;
+    }
+    .ols-vcard .ovc-label {
+      font-size: .68rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .05em;
+      color: #aaa; margin-bottom: 4px;
+    }
+    .ols-vcard .ovc-formula {
+      font-size: .78rem; color: #777;
+      font-family: monospace; margin-bottom: 8px;
+    }
+    .r2-track {
+      height: 7px; background: #f0eeea;
+      border-radius: 4px; margin-bottom: 6px; overflow: hidden;
+    }
+    .r2-fill { height: 100%; border-radius: 4px; background: #185FA5; transition: width .4s ease; }
+    .ols-vcard .ovc-r2  { font-size: 1.1rem; font-weight: 700; color: #185FA5; }
+    .ols-vcard .ovc-gain { font-size: .72rem; color: #0F6E56; margin-top: 3px; }
+    .ols-vcard .ovc-base { font-size: .72rem; color: #aaa; margin-top: 3px; }
+
+    /* ── Interpretation box ── */
+    .interpretation-box {
+      background: var(--color-bg-subtle, #f5f4f0);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0;
+    }
+    .interpretation-box h4 {
+      font-size: .78rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .05em;
+      color: #aaa; margin-bottom: .6rem;
+    }
+    .interpretation-box p {
+      font-size: .88rem; color: #555;
+      line-height: 1.7; margin-bottom: .6rem;
+    }
+    .interpretation-box p:last-child { margin-bottom: 0; }
+
+    /* ── Scatter explorer wrapper ── */
+    .scatter-explorer {
+      border: 1px solid var(--color-border, #e5e3db);
+      border-radius: 12px;
+      background: #fff;
+      padding: 1.25rem;
+      margin: 1.25rem 0;
+    }
+    .scatter-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .scatter-controls label {
+      font-size: .82rem; color: #888; white-space: nowrap;
+    }
+    /* Style the existing <select> and <button> without renaming their IDs */
+    #yAxis, #yAxis2 {
+      font-size: .82rem;
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--color-border, #ddd);
+      background: #fff;
+      cursor: pointer;
+      flex: 1;
+      min-width: 200px;
+    }
+    #toggleOutliers, #toggleOutliers2 {
+      font-size: .78rem; font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--color-border, #ddd);
+      background: #fff;
+      cursor: pointer;
+      white-space: nowrap;
+      display: flex; align-items: center; gap: 5px;
+    }
+    #toggleOutliers:hover, #toggleOutliers2:hover {
+      background: var(--color-bg-subtle, #f5f4f0);
+    }
+    .scatter-canvas-wrap {
+      position: relative; width: 100%; height: 320px;
+    }
+    #acquisitions, #acquisitions2 {
+      width: 100% !important;
+      height: 100% !important;
+    }
+    .scatter-legend {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      margin-top: .75rem; font-size: .72rem; color: #888;
+    }
+    .scatter-legend span { display: flex; align-items: center; gap: 5px; }
+    .leg-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+    .leg-line { width: 18px; height: 2px; background: rgba(255,160,0,.9); display: inline-block; border-radius: 1px; }
+    .scatter-hint { font-size: .72rem; color: #ccc; text-align: center; margin-top: .4rem; }
+
+    /* ── Outlier cards ── */
+    .outlier-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 1.25rem;
+    }
+    @media (max-width: 540px) { .outlier-cards { grid-template-columns: 1fr; } }
+    .outlier-card {
+      border: 1px solid var(--color-border, #e5e3db);
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+      background: #fff;
+    }
+    .outlier-card h3 {
+      font-size: .95rem; font-weight: 700;
+      color: #111; margin-bottom: .5rem;
+    }
+    .outlier-card p {
+      font-size: .82rem; color: #666; line-height: 1.6; margin: 0;
+    }
+
+    /* ── Download buttons ── */
+    .download-buttons {
+      display: flex; gap: 10px; flex-wrap: wrap;
+      margin: 1rem 0;
+    }
+    .data-note {
+      font-size: .78rem; color: #aaa;
+      line-height: 1.65; margin-top: 1rem;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- NAVIGATION -->
   <nav>
     <a href="index.html" class="nav-brand">Living Along Data Centers</a>
     <ul class="nav-links">
@@ -30,22 +213,22 @@
         <h1>Analysis Results</h1>
         <div class="rule"></div>
         <p>
-          This page presents the full results of the Spearman's rank correlation analysis and OLS regression
-          for all seven hypotheses. Results are shown both with and without IQR outlier removal.
-          Findings should be interpreted as associative rather than causal.
+          Full results of the Spearman's rank correlation and OLS regression for all seven hypotheses.
+          Results are shown both with and without IQR outlier removal.
+          All findings should be interpreted as associative, not causal.
         </p>
         <div class="results-summary-chips">
           <div class="summary-chip">
             <span class="chip-num">2</span>
-            <span class="chip-label">Hypotheses not rejected (H0, H1)</span>
+            <span class="chip-label">Price hypotheses not rejected (H0, H1)</span>
           </div>
           <div class="summary-chip">
             <span class="chip-num">2</span>
-            <span class="chip-label">Statistically significant ICT findings (H5b, H6b)</span>
+            <span class="chip-label">Significant ICT findings (H5, H6b)</span>
           </div>
           <div class="summary-chip">
-            <span class="chip-num">2</span>
-            <span class="chip-label">Statistically insignificant (H2, H3)</span>
+            <span class="chip-num">3</span>
+            <span class="chip-label">Not significant (H2, H3, H4)</span>
           </div>
           <div class="summary-chip">
             <span class="chip-num">35</span>
@@ -55,32 +238,32 @@
       </div>
     </section>
 
-    <!-- SPEARMAN OVERVIEW CHART -->
+    <!-- SPEARMAN OVERVIEW -->
     <section id="spearman-overview">
       <div class="container">
         <p class="label">Overview</p>
         <h2>Spearman Correlation Coefficients — All Hypotheses</h2>
         <div class="rule"></div>
         <p>
-          The bar chart below visualises the Spearman ρ for all hypotheses. Significance stars follow
-          the convention: *** p&lt;0.001 · ** p&lt;0.01 · * p&lt;0.05 · † p&lt;0.10 · ns = not significant.
+          The chart below shows Spearman ρ for all hypotheses.
+          Significance: *** p&lt;0.001 · ** p&lt;0.01 · * p&lt;0.05 · † p&lt;0.10 · ns = not significant.
         </p>
         <div id="spearman-chart-container">
-          <canvas id="spearman-chart" aria-label="Spearman correlation overview bar chart" role="img"></canvas>
+          <canvas id="spearman-chart" role="img" aria-label="Bar chart of Spearman rho values for all seven hypotheses"></canvas>
         </div>
       </div>
     </section>
 
-    <!-- ENERGY PRICES: SPEARMAN TABLE -->
+    <!-- PRICE HYPOTHESES -->
     <section id="price-spearman">
       <div class="container">
-        <p class="label">Price Hypotheses · H0 – H3</p>
+        <span class="sec-pill pill-price">Price Hypotheses · H0–H3</span>
         <h2>Spearman's Correlation — Energy Prices</h2>
         <div class="rule"></div>
         <p>
-          H0 and H1 are statistically significant at the p&lt;0.001 level, indicating a moderate positive
-          relationship between household electricity prices and data center concentration. H2 and H3
-          (non-household prices) are not statistically significant.
+          H0 and H1 are significant at p&lt;0.001, indicating a moderate positive relationship between
+          household electricity prices and data center concentration. H2 and H3 (non-household prices)
+          are not statistically significant.
         </p>
 
         <table class="data-table">
@@ -96,143 +279,123 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>H0</strong></td>
-              <td>HH_E_P</td>
-              <td>DC_CAPITA</td>
-              <td class="num-cell p-high">0.550</td>
-              <td class="num-cell p-high">0.000613</td>
-              <td class="num-cell">31</td>
+              <td><strong>H0</strong></td><td>HH_E_P</td><td>DC_CAPITA</td>
+              <td class="num-cell p-high">0.550</td><td class="num-cell p-high">0.000613 ***</td><td class="num-cell">31</td>
             </tr>
             <tr>
-              <td><strong>H1</strong></td>
-              <td>HH_E_P</td>
-              <td>DC_SHARE</td>
-              <td class="num-cell p-high">0.573</td>
-              <td class="num-cell p-high">0.000397</td>
-              <td class="num-cell">29</td>
+              <td><strong>H1</strong></td><td>HH_E_P</td><td>DC_SHARE</td>
+              <td class="num-cell p-high">0.573</td><td class="num-cell p-high">0.000397 ***</td><td class="num-cell">29</td>
             </tr>
             <tr>
-              <td><strong>H2</strong></td>
-              <td>NON-HH_E_P</td>
-              <td>DC_CAPITA</td>
-              <td class="num-cell p-none">0.298</td>
-              <td class="num-cell p-none">0.091579</td>
-              <td class="num-cell">29</td>
+              <td><strong>H2</strong></td><td>NON-HH_E_P</td><td>DC_CAPITA</td>
+              <td class="num-cell p-none">0.298</td><td class="num-cell p-none">0.091579 ns</td><td class="num-cell">29</td>
             </tr>
             <tr>
-              <td><strong>H3</strong></td>
-              <td>NON-HH_E_P</td>
-              <td>DC_SHARE</td>
-              <td class="num-cell p-none">0.299</td>
-              <td class="num-cell p-none">0.091488</td>
-              <td class="num-cell">29</td>
+              <td><strong>H3</strong></td><td>NON-HH_E_P</td><td>DC_SHARE</td>
+              <td class="num-cell p-none">0.299</td><td class="num-cell p-none">0.091488 ns</td><td class="num-cell">29</td>
             </tr>
           </tbody>
         </table>
 
-        <!-- H0/H1: OLS REGRESSION -->
-        <h3>OLS Regression — H0 &amp; H1 (statistically significant results only)</h3>
+        <h3>OLS Regression — H0 &amp; H1</h3>
         <p>
-          For H0 and H1, OLS regression was run with and without GDP per capita as a control variable.
-          Including GDP per capita substantially improved explanatory power, suggesting that economic
-          development — rather than data centers directly — partially explains higher electricity prices.
+          Adding GDP per capita as a control nearly doubled explanatory power for both models,
+          suggesting economic development — not data centers alone — is a major driver of higher electricity prices.
         </p>
 
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Model</th>
-              <th>Hypothesis</th>
-              <th>Variables</th>
-              <th>R²</th>
-              <th>n (after IQR)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Simple OLS</td>
-              <td><strong>H0</strong></td>
-              <td>HH_E_P ~ DC_SHARE</td>
-              <td class="num-cell">0.145</td>
-              <td class="num-cell">31</td>
-            </tr>
-            <tr>
-              <td>OLS + GDP control</td>
-              <td><strong>H0</strong></td>
-              <td>HH_E_P ~ DC_SHARE + GDP_PC</td>
-              <td class="num-cell p-mid">0.292</td>
-              <td class="num-cell">31</td>
-            </tr>
-            <tr>
-              <td>Simple OLS</td>
-              <td><strong>H1</strong></td>
-              <td>HH_E_P ~ DC_CAPITA</td>
-              <td class="num-cell">0.161</td>
-              <td class="num-cell">29</td>
-            </tr>
-            <tr>
-              <td>OLS + GDP control</td>
-              <td><strong>H1</strong></td>
-              <td>HH_E_P ~ DC_CAPITA + GDP_PC</td>
-              <td class="num-cell p-mid">0.319</td>
-              <td class="num-cell">29</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="ols-visual-grid">
+          <div class="ols-vcard">
+            <div class="ovc-label">Simple OLS · H0</div>
+            <div class="ovc-formula">HH_E_P ~ DC_SHARE</div>
+            <div class="r2-track"><div class="r2-fill" style="width:14.5%"></div></div>
+            <div class="ovc-r2">R² = 0.145</div>
+            <div class="ovc-base">Baseline — no GDP control</div>
+          </div>
+          <div class="ols-vcard">
+            <div class="ovc-label">OLS + GDP control · H0</div>
+            <div class="ovc-formula">HH_E_P ~ DC_SHARE + GDP_PC</div>
+            <div class="r2-track"><div class="r2-fill" style="width:29.2%"></div></div>
+            <div class="ovc-r2">R² = 0.292</div>
+            <div class="ovc-gain"><i class="ti ti-trending-up" style="font-size:12px;vertical-align:-1px"></i> +101% explanatory power</div>
+          </div>
+          <div class="ols-vcard">
+            <div class="ovc-label">Simple OLS · H1</div>
+            <div class="ovc-formula">HH_E_P ~ DC_CAPITA</div>
+            <div class="r2-track"><div class="r2-fill" style="width:16.1%"></div></div>
+            <div class="ovc-r2">R² = 0.161</div>
+            <div class="ovc-base">Baseline — no GDP control</div>
+          </div>
+          <div class="ols-vcard">
+            <div class="ovc-label">OLS + GDP control · H1</div>
+            <div class="ovc-formula">HH_E_P ~ DC_CAPITA + GDP_PC</div>
+            <div class="r2-track"><div class="r2-fill" style="width:31.9%"></div></div>
+            <div class="ovc-r2">R² = 0.319</div>
+            <div class="ovc-gain"><i class="ti ti-trending-up" style="font-size:12px;vertical-align:-1px"></i> +98% explanatory power</div>
+          </div>
+        </div>
 
         <div class="interpretation-box">
           <h4>Interpretation</h4>
           <p>
             H0 and H1 cannot be rejected — there is a statistically significant positive relationship between
-            household electricity prices and data center concentration. However, when GDP per capita is controlled
-            for, explanatory power increases substantially (R² rises from ~0.15 to ~0.31), indicating that
-            more economically developed countries tend to have both more data centers <em>and</em> higher energy prices.
-            Data centers are therefore associated with higher prices, but are not necessarily the direct cause.
+            household electricity prices and data center concentration. However, when GDP per capita is
+            controlled for, explanatory power increases substantially (R² from ~0.15 to ~0.31), indicating
+            that more economically developed countries tend to have both more data centers <em>and</em>
+            higher energy prices. Data centers are associated with higher prices, but are not necessarily
+            the direct cause.
+          </p>
+          <p>
             H2 and H3 yield no statistically significant findings — no clear relationship between
             non-household prices and data center concentration is observable.
           </p>
         </div>
 
-        <!-- ── SCATTER EXPLORER (H0–H3) ───────────────────────────── -->
+        <!-- SCATTER EXPLORER H0–H3 — IDs untouched -->
         <h3>Scatter Plot Explorer — Price Hypotheses</h3>
-        <p>Select a hypothesis to visualise the raw data points and regression lines.
-          <span style="color:#DD4444;">▲</span> marks IQR outliers excluded from OLS regression.</p>
+        <p>
+          Select a hypothesis to visualise the raw data points and regression line.
+          Red points are IQR outliers excluded from OLS regression.
+        </p>
 
-        <div style="display:grid; grid-template-columns:120px 1fr; gap:1.5rem; align-items:start; margin-top:1.5rem;">
-
-          <!-- sidebar buttons — filled by results.js -->
-          <select id="yAxis">
-          <option value="dcPerCapita, hhPrices">H_0 - DC/capita vs HH Prices</option>
-          <option value="dcPctConsumption, hhPrices">H_1 - Energy Share vs HH Prices</option>
-          <option value="dcPerCapita, nhPrices">H_2 - DC/capita vs NH Prices</option>
-          <option value="dcPctConsumption, nhPrices">H_3 - Energy Share vs NH Prices</option>
-
-        </select>
-        <button id="toggleOutliers">Hide Outliers</button>
-
-            <!-- <div style="width: 500px;"><canvas id="dimensions"></canvas></div><br/> -->
-            <div style="width: 800px;"><canvas id="acquisitions"></canvas></div>
-
-            <!-- <script type="module" src="dimensions.js"></script> -->
-        <script type="module" src="js/scatter_1.js"></script>
-
+        <div class="scatter-explorer">
+          <div class="scatter-controls">
+            <label for="yAxis">Hypothesis</label>
+            <select id="yAxis">
+              <option value="dcPerCapita, hhPrices">H0 — DC/capita vs Household prices</option>
+              <option value="dcPctConsumption, hhPrices">H1 — Energy share vs Household prices</option>
+              <option value="dcPerCapita, nhPrices">H2 — DC/capita vs Non-household prices</option>
+              <option value="dcPctConsumption, nhPrices">H3 — Energy share vs Non-household prices</option>
+            </select>
+            <button id="toggleOutliers">
+              <i class="ti ti-eye-off" style="font-size:14px"></i> Hide outliers
+            </button>
+          </div>
+          <div class="scatter-canvas-wrap">
+            <canvas id="acquisitions" role="img" aria-label="Scatter plot for selected price hypothesis"></canvas>
+          </div>
+          <div class="scatter-legend">
+            <span><span class="leg-dot" style="background:rgba(99,107,255,.7)"></span> Country (in regression)</span>
+            <span><span class="leg-dot" style="background:rgba(255,60,60,.8)"></span> IQR outlier (excluded)</span>
+            <span><span class="leg-line"></span> Regression line</span>
+          </div>
+          <div class="scatter-hint">Hover any point to see the country name and exact values</div>
         </div>
-        <!-- ── END SCATTER EXPLORER ───────────────────────────────── -->
+
+        <script type="module" src="js/scatter_1.js"></script>
 
       </div>
     </section>
 
-    <!-- ICT: SPEARMAN TABLE -->
+    <!-- ICT HYPOTHESES -->
     <section id="ict-spearman">
       <div class="container">
-        <p class="label">ICT Hypotheses · H4 – H6</p>
+        <span class="sec-pill pill-ict">ICT Hypotheses · H4–H6</span>
         <h2>Spearman's Correlation — ICT Sector</h2>
         <div class="rule"></div>
         <p>
-          Results for ICT hypotheses show high variability. H5 (ICT employment × DC per capita) is the
-          strongest finding: a highly significant positive correlation (ρ = 0.703, p &lt; 0.001).
-          H6b (ICT R&amp;D × DC per capita) also shows a significant positive correlation.
-          H4 (ICT GVA) yields weak or insignificant results.
+          Results show high variability. H5 (ICT employment × DC per capita) is the strongest finding
+          in the entire analysis: ρ = 0.703 at p &lt; 0.001. H6b (ICT R&amp;D × DC per capita)
+          is also significant. H4 (ICT GVA) yields weak results.
         </p>
 
         <table class="data-table">
@@ -248,145 +411,119 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>H4</strong></td>
-              <td>ICT_GVA</td>
-              <td>DC_SHARE</td>
-              <td class="num-cell p-none">0.206</td>
-              <td class="num-cell p-none">0.267</td>
-              <td class="num-cell">31</td>
+              <td><strong>H4</strong></td><td>ICT_GVA</td><td>DC_SHARE</td>
+              <td class="num-cell p-none">0.206</td><td class="num-cell p-none">0.267 ns</td><td class="num-cell">31</td>
             </tr>
             <tr>
-              <td><strong>H5</strong></td>
-              <td>ICT_EMP</td>
-              <td>DC_CAPITA</td>
-              <td class="num-cell p-high">0.703</td>
-              <td class="num-cell p-high">0.00002</td>
-              <td class="num-cell">29</td>
+              <td><strong>H5</strong></td><td>ICT_EMP</td><td>DC_CAPITA</td>
+              <td class="num-cell p-high">0.703</td><td class="num-cell p-high">0.000020 ***</td><td class="num-cell">29</td>
             </tr>
             <tr>
-              <td><strong>H6</strong></td>
-              <td>ICT_RnD</td>
-              <td>DC_SHARE</td>
-              <td class="num-cell p-none">0.192</td>
-              <td class="num-cell p-none">0.318</td>
-              <td class="num-cell">29</td>
+              <td><strong>H6</strong></td><td>ICT_RnD</td><td>DC_SHARE</td>
+              <td class="num-cell p-none">0.192</td><td class="num-cell p-none">0.318 ns</td><td class="num-cell">29</td>
             </tr>
             <tr>
-              <td><strong>H4b</strong></td>
-              <td>ICT_GVA</td>
-              <td>DC_CAPITA</td>
-              <td class="num-cell p-none">0.340</td>
-              <td class="num-cell p-none">0.061</td>
-              <td class="num-cell">31</td>
+              <td><strong>H4b</strong></td><td>ICT_GVA</td><td>DC_CAPITA</td>
+              <td class="num-cell p-none">0.340</td><td class="num-cell p-none">0.061 †</td><td class="num-cell">31</td>
             </tr>
             <tr>
-              <td><strong>H5b</strong></td>
-              <td>ICT_EMP</td>
-              <td>DC_SHARE</td>
-              <td class="num-cell p-mid">0.364</td>
-              <td class="num-cell p-mid">0.052</td>
-              <td class="num-cell">29</td>
+              <td><strong>H5b</strong></td><td>ICT_EMP</td><td>DC_SHARE</td>
+              <td class="num-cell p-mid">0.364</td><td class="num-cell p-mid">0.052 †</td><td class="num-cell">29</td>
             </tr>
             <tr>
-              <td><strong>H6b</strong></td>
-              <td>ICT_RnD</td>
-              <td>DC_CAPITA</td>
-              <td class="num-cell p-high">0.559</td>
-              <td class="num-cell p-high">0.00162</td>
-              <td class="num-cell">29</td>
+              <td><strong>H6b</strong></td><td>ICT_RnD</td><td>DC_CAPITA</td>
+              <td class="num-cell p-high">0.559</td><td class="num-cell p-high">0.00162 **</td><td class="num-cell">29</td>
             </tr>
           </tbody>
         </table>
-          <!-- H5/H6B: OLS REGRESSION -->
-        <h3>OLS Regression — H5 &amp; H6b (statistically significant results only)</h3>
+
+        <h3>OLS Regression — H5 &amp; H6b</h3>
         <p>
-          In the case of H5, the R2 value increases only marginally from 0.447 to 0.455 after adding GDP to the model. This small change (+0.008) suggests that GDP explains very little additional variance beyond what is already captured by DC per million.
-          For H6b, which examines ICT RnD, the R2 value increases more substantially from 0.293 to 0.416 after controlling for GDP, representing an increase of +0.123. This suggests that a notable portion of the relationship between DC per million and ICT RnD expenditure is influenced by GDP. In other words, wealthier countries tend to both host more data centers and invest more heavily in ICT research and development.
+          For H5, adding GDP barely changes R² (+0.008), meaning DC per capita independently explains most
+          of the ICT employment variation. For H6b, GDP adds more (+0.123), suggesting wealthier countries
+          invest more in R&amp;D regardless of data center density.
         </p>
 
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Model</th>
-              <th>Hypothesis</th>
-              <th>Variables</th>
-              <th>R²</th>
-              <th>n (after IQR)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Simple OLS</td>
-              <td><strong>H5</strong></td>
-              <td>ICT_EMP ~ DC_CAPITA</td>
-              <td class="num-cell">0.447</td>
-              <td class="num-cell">28</td>
-            </tr>
-            <tr>
-              <td>OLS + GDP control</td>
-              <td><strong>H5</strong></td>
-              <td>ICT_EMP ~ DC_CAPITA + GDP_PC</td>
-              <td class="num-cell p-mid">0.455</td>
-              <td class="num-cell">28</td>
-            </tr>
-            <tr>
-              <td>Simple OLS</td>
-              <td><strong>H6b</strong></td>
-              <td>ICT_RnD ~ DC_CAPITA</td>
-              <td class="num-cell">0.293</td>
-              <td class="num-cell">28</td>
-            </tr>
-            <tr>
-              <td>OLS + GDP control</td>
-              <td><strong>H6b</strong></td>
-              <td>ICT_RnD ~ DC_CAPITA + GDP_PC</td>
-              <td class="num-cell p-mid">0.416</td>
-              <td class="num-cell">27</td>
-            </tr>
-          </tbody>
-        </table>
-    
-
-        <!-- ── SCATTER EXPLORER (H4–H6b) ──────────────────────────── -->
-        <h3>Scatter Plot Explorer — ICT Hypotheses</h3>
-        <p>Select a hypothesis to visualise the raw data points and regression lines.
-          <span style="color:#DD4444;">▲</span> marks IQR outliers excluded from OLS regression.</p>
-
-        <div style="display:grid; grid-template-columns:120px 1fr; gap:1.5rem; align-items:start; margin-top:1.5rem;">
-
-          <!-- sidebar buttons — ICT section -->
-            <select id="yAxis2">
-            <option value="dcPctConsumption, ictGva">H_4 - DC Energy Share vs ICT GVA</option>
-            <option value="dcPerCapita, ictEmp">H_5 - DC/capita vs ICT Employment</option>
-            <option value="dcPctConsumption, ictRnd">H_6 - DC Energy Share vs ICT R&D</option>
-            <option value="dcPerCapita, ictGva">H_4b - DC/capita vs ICT GVA</option>
-            <option value="dcPctConsumption, ictEmp">H_5b - DC Energy Share vs ICT Employment</option>
-            <option value="dcPerCapita, ictRnd">H_6b - DC/capita vs ICT R&D</option>
-          </select>
-          <button id="toggleOutliers2">Hide Outliers</button>
-
-              <!-- <div style="width: 500px;"><canvas id="dimensions"></canvas></div><br/> -->
-              <div style="width: 800px;"><canvas id="acquisitions2"></canvas></div>
-
-              <!-- <script type="module" src="dimensions.js"></script> -->
-          <script type="module" src="js/scatter_2.js"></script>
-
+        <div class="ols-visual-grid">
+          <div class="ols-vcard">
+            <div class="ovc-label">Simple OLS · H5</div>
+            <div class="ovc-formula">ICT_EMP ~ DC_CAPITA</div>
+            <div class="r2-track"><div class="r2-fill" style="width:44.7%"></div></div>
+            <div class="ovc-r2">R² = 0.447</div>
+            <div class="ovc-base">Baseline — no GDP control</div>
+          </div>
+          <div class="ols-vcard">
+            <div class="ovc-label">OLS + GDP control · H5</div>
+            <div class="ovc-formula">ICT_EMP ~ DC_CAPITA + GDP_PC</div>
+            <div class="r2-track"><div class="r2-fill" style="width:45.5%"></div></div>
+            <div class="ovc-r2">R² = 0.455</div>
+            <div class="ovc-base">GDP adds very little — DC effect is independent</div>
+          </div>
+          <div class="ols-vcard">
+            <div class="ovc-label">Simple OLS · H6b</div>
+            <div class="ovc-formula">ICT_RnD ~ DC_CAPITA</div>
+            <div class="r2-track"><div class="r2-fill" style="width:29.3%"></div></div>
+            <div class="ovc-r2">R² = 0.293</div>
+            <div class="ovc-base">Baseline — no GDP control</div>
+          </div>
+          <div class="ols-vcard">
+            <div class="ovc-label">OLS + GDP control · H6b</div>
+            <div class="ovc-formula">ICT_RnD ~ DC_CAPITA + GDP_PC</div>
+            <div class="r2-track"><div class="r2-fill" style="width:41.6%"></div></div>
+            <div class="ovc-r2">R² = 0.416</div>
+            <div class="ovc-gain"><i class="ti ti-trending-up" style="font-size:12px;vertical-align:-1px"></i> +42% — GDP partially explains R&amp;D spending</div>
+          </div>
         </div>
-        <!-- ── END SCATTER EXPLORER ───────────────────────────────── -->
+
+        <!-- SCATTER EXPLORER H4–H6b — IDs untouched -->
+        <h3>Scatter Plot Explorer — ICT Hypotheses</h3>
+        <p>
+          Select a hypothesis to visualise the raw data points and regression line.
+          Red points are IQR outliers excluded from OLS regression.
+        </p>
+
+        <div class="scatter-explorer">
+          <div class="scatter-controls">
+            <label for="yAxis2">Hypothesis</label>
+            <select id="yAxis2">
+              <option value="dcPctConsumption, ictGva">H4 — DC energy share vs ICT GVA</option>
+              <option value="dcPerCapita, ictEmp">H5 — DC/capita vs ICT Employment</option>
+              <option value="dcPctConsumption, ictRnd">H6 — DC energy share vs ICT R&amp;D</option>
+              <option value="dcPerCapita, ictGva">H4b — DC/capita vs ICT GVA</option>
+              <option value="dcPctConsumption, ictEmp">H5b — DC energy share vs ICT Employment</option>
+              <option value="dcPerCapita, ictRnd">H6b — DC/capita vs ICT R&amp;D</option>
+            </select>
+            <button id="toggleOutliers2">
+              <i class="ti ti-eye-off" style="font-size:14px"></i> Hide outliers
+            </button>
+          </div>
+          <div class="scatter-canvas-wrap">
+            <canvas id="acquisitions2" role="img" aria-label="Scatter plot for selected ICT hypothesis"></canvas>
+          </div>
+          <div class="scatter-legend">
+            <span><span class="leg-dot" style="background:rgba(99,107,255,.7)"></span> Country (in regression)</span>
+            <span><span class="leg-dot" style="background:rgba(255,60,60,.8)"></span> IQR outlier (excluded)</span>
+            <span><span class="leg-line"></span> Regression line</span>
+          </div>
+          <div class="scatter-hint">Hover any point to see the country name and exact values</div>
+        </div>
+
+        <script type="module" src="js/scatter_2.js"></script>
 
         <div class="interpretation-box">
           <h4>Interpretation</h4>
           <p>
-            H5 yields the strongest finding of the entire analysis: countries with more data centers per capita
-            also have a significantly higher ICT employment share (ρ = 0.703, p &lt; 0.001). This suggests
-            that data center infrastructure does act as a broader economic anchor for the ICT sector, even
-            if individual facilities require few direct employees.
+            H5 is the strongest finding of the entire analysis: countries with more data centers per
+            capita also have a significantly higher ICT employment share (ρ = 0.703, p &lt; 0.001).
+            Data center infrastructure appears to act as a broader economic anchor for the ICT sector,
+            even though individual facilities require few direct employees. The GDP control barely
+            changes R² (0.447 → 0.455), confirming this relationship is largely independent of wealth.
           </p>
           <p>
-            H6b similarly shows a significant positive correlation between DC per capita and ICT R&amp;D spending,
-            suggesting that dense infrastructure drives capital into innovation. H4 (GVA) shows only weak,
-            borderline results, indicating that energy consumption alone does not guarantee proportionate
-            growth in economic output.
+            H6b shows a significant positive correlation between DC density and ICT R&amp;D spending
+            (ρ = 0.559, p = 0.00162). However, adding GDP increases R² by +0.123, suggesting
+            wealthier countries invest more in R&amp;D regardless — so data center density and
+            national wealth both play a role. H4 (GVA) shows only weak, borderline results.
           </p>
         </div>
       </div>
@@ -399,27 +536,26 @@
         <h2>Key Outlier Countries</h2>
         <div class="rule"></div>
         <p>
-          The IQR method identified several countries as statistical outliers due to extreme data center
-          concentration relative to their population. These countries were excluded from OLS regression
-          but retained in Spearman correlation analysis.
+          The IQR method flagged several countries as outliers due to extreme data center concentration.
+          They were excluded from OLS regression but retained in Spearman correlation (which is
+          rank-based and robust to extremes).
         </p>
-
         <div class="outlier-cards">
           <div class="outlier-card">
             <h3>🇮🇪 Ireland</h3>
-            <p>Data centers consume an estimated <strong>18–22%</strong> of national electricity — the highest share in Europe. 95 out of 127 data centers are concentrated in Dublin. Removed from OLS as DC_SHARE outlier.</p>
+            <p>Data centers consume an estimated <strong>18–22%</strong> of national electricity — the highest share in Europe. 95 of 127 data centers are in Dublin. Removed from OLS as a DC_SHARE outlier.</p>
           </div>
           <div class="outlier-card">
             <h3>🇳🇱 Netherlands</h3>
-            <p>Data centers account for approximately <strong>5.2%</strong> of national energy demand, driven by the Amsterdam hub. Identified as outlier in DC_SHARE analysis.</p>
+            <p>Data centers account for approximately <strong>5.2%</strong> of national energy demand, driven by the Amsterdam internet exchange hub. Outlier in DC_SHARE analysis.</p>
           </div>
           <div class="outlier-card">
             <h3>🇩🇰 Denmark</h3>
-            <p>Data centers account for approximately <strong>4.5%</strong> of national demand, above the European median. Flagged by IQR in energy share analysis.</p>
+            <p>Data centers account for approximately <strong>4.5%</strong> of national demand — above the European median. Flagged by the IQR method in energy share analysis.</p>
           </div>
           <div class="outlier-card">
             <h3>🇱🇺 Luxembourg &amp; 🇱🇮 Liechtenstein</h3>
-            <p>Very small populations produce extreme DC per capita values that heavily distort the distribution. Flagged and removed in DC_CAPITA regression models.</p>
+            <p>Very small populations produce extreme DC per capita values even with few facilities. Both removed from DC_CAPITA regression models.</p>
           </div>
         </div>
       </div>
@@ -432,33 +568,26 @@
         <h2>Download the Data</h2>
         <div class="rule"></div>
         <p>
-          All datasets and scripts used in this analysis are available for download. The archive includes raw CSVs
-          for energy prices, ICT variables, GDP per capita, and data center counts by country, as well
-          as the cleaned datasets used in regression analysis.
+          All datasets and scripts used in this analysis are available below. The archive includes
+          raw CSVs for energy prices, ICT variables, GDP per capita, and data center counts by country,
+          as well as the cleaned datasets used in regression analysis.
         </p>
         <div class="download-buttons">
-          <a href="download/thesis-data.zip" download="thesis-data.zip" class="btn btn--primary">
-            ↓ Download All Data (ZIP)
-          </a>
-          <a href="download/results.csv" download class="btn btn--outline">
-            ↓ Results (CSV)
-          </a>
-          <a href="download/thesis-analysis.zip" download class="btn btn--outline">
-            ↓ Analysis DATA & SCRIPTS (.ipynb, .py)
-          </a>
+          <a href="download/thesis-data.zip" download class="btn btn--primary">↓ Download All Data (ZIP)</a>
+          <a href="data/results.csv" download class="btn btn--outline">↓ Results (CSV)</a>
+          <a href="download/thesis-analysis.zip" download class="btn btn--outline">↓ Analysis Scripts (.ipynb, .py)</a>
         </div>
         <p class="data-note">
           <strong>Primary sources:</strong> Eurostat (<code>nrg_pc_204</code>, <code>nama_10_pc</code>, isoc datasets),
           Data Center Map, prior studies on European data center energy shares.
-          All data covers the period 2014–2023 unless otherwise noted. Missing values were filled via
-          linear interpolation or manual country-level research.
+          All data covers 2014–2023 unless otherwise noted. Missing values filled via linear interpolation
+          or manual country-level research.
         </p>
       </div>
     </section>
 
   </main>
 
-  <!-- FOOTER -->
   <footer>
     <div class="container">
       <div class="footer-left">
