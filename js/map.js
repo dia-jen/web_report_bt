@@ -370,3 +370,8 @@ document.getElementById("country-search").addEventListener("input", e => {
 window.addEventListener("resize", () => {
   if (currentView === "map") drawMap();
 });
+
+// Expose functions to global scope for onclick handlers
+window.setView = setView;
+window.closeDetail = closeDetail;
+window.selectFromBar = selectFromBar;
