@@ -26,7 +26,6 @@ The project is designed as an interactive supplement to the written thesis, maki
 - HTML / CSS / JavaScript
 - Chart.js for charts
 - D3 for map rendering and geographic visualization
-- PapaParse for CSV/JSON data handling
 
 ## Repository Structure
 
