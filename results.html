@@ -280,11 +280,11 @@
           <tbody>
             <tr>
               <td><strong>H0</strong></td><td>DC_CAPITA</td><td>HH_E_P</td>
-              <td class="num-cell p-high">0.550</td><td class="num-cell p-high">0.000613 </td>td><td class="num-cell">31</td>
+              <td class="num-cell p-high">0.550</td><td class="num-cell p-high">0.000613 </td><td class="num-cell">31</td>
             </tr>
             <tr>
               <td><strong>H1</strong></td><td>DC_SHARE</td><td>HH_E_P</td>
-              <td class="num-cell p-high">0.573</td><td class="num-cell p-high">0.000397 </td>td><td class="num-cell">29</td>
+              <td class="num-cell p-high">0.573</td><td class="num-cell p-high">0.000397 </td><td class="num-cell">29</td>
             </tr>
             <tr>
               <td><strong>H2</strong></td><td>DC_CAPITA</td><td>NON-HH_E_P</td>
@@ -306,28 +306,28 @@
         <div class="ols-visual-grid">
           <div class="ols-vcard">
             <div class="ovc-label">Simple OLS · H0</div>
-            <div class="ovc-formula">HH_E_P ~ DC_SHARE</div>
+            <div class="ovc-formula">HH_E_P ~ DC_CAPITA</div>
             <div class="r2-track"><div class="r2-fill" style="width:14.5%"></div></div>
             <div class="ovc-r2">R² = 0.145</div>
             <div class="ovc-base">Baseline — no GDP control</div>
           </div>
           <div class="ols-vcard">
             <div class="ovc-label">OLS + GDP control · H0</div>
-            <div class="ovc-formula">HH_E_P ~ DC_SHARE + GDP_PC</div>
+            <div class="ovc-formula">HH_E_P ~ DC_CAPITA + GDP_PC</div>
             <div class="r2-track"><div class="r2-fill" style="width:29.2%"></div></div>
             <div class="ovc-r2">R² = 0.292</div>
             <div class="ovc-gain"><i class="ti ti-trending-up" style="font-size:12px;vertical-align:-1px"></i> explanatory power</div>
           </div>
           <div class="ols-vcard">
             <div class="ovc-label">Simple OLS · H1</div>
-            <div class="ovc-formula">HH_E_P ~ DC_CAPITA</div>
+            <div class="ovc-formula">HH_E_P ~ DC_SHARE</div>
             <div class="r2-track"><div class="r2-fill" style="width:16.1%"></div></div>
             <div class="ovc-r2">R² = 0.161</div>
             <div class="ovc-base">Baseline — no GDP control</div>
           </div>
           <div class="ols-vcard">
             <div class="ovc-label">OLS + GDP control · H1</div>
-            <div class="ovc-formula">HH_E_P ~ DC_CAPITA + GDP_PC</div>
+            <div class="ovc-formula">HH_E_P ~ DC_SHARE + GDP_PC</div>
             <div class="r2-track"><div class="r2-fill" style="width:31.9%"></div></div>
             <div class="ovc-r2">R² = 0.319</div>
             <div class="ovc-gain"><i class="ti ti-trending-up" style="font-size:12px;vertical-align:-1px"></i> explanatory power</div>
@@ -339,7 +339,7 @@
           <p>
             H0 and H1 cannot be rejected — there is a statistically significant positive relationship between
             household electricity prices and data center concentration. However, when GDP per capita is
-            controlled for, explanatory power increases substantially (R² from ~0.15 to ~0.31), indicating
+            controlled for, explanatory power increases substantially (R² from ~0.15 to ~0.30), indicating
             that more economically developed countries tend to have both more data centers <em>and</em>
             higher energy prices. Data centers are associated with higher prices, but are not necessarily
             the direct cause.
@@ -592,7 +592,7 @@
       <div class="footer-left">
         <strong>Diana Jenčíková</strong><br />
         Bachelor's Thesis · Czech Technical University in Prague<br />
-        Faculty of Information Technology · April 2026
+        Faculty of Information Technology · May 2026
       </div>
       <div class="footer-right">
         Supervisor: PhDr. Ing. Tomáš Evan, Ph.D.<br />
